@@ -8,34 +8,15 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import AppContext from './context/AppContext';
-
-const steps = [
-  {
-    label: 'STRUCTURE',
-    detail: ['Dimensions', 'Columns'],
-  },
-  {
-    label: 'STYLING',
-    detail: ['Design styles', 'Colors'],
-  },
-  {
-    label: 'SIDE INFILLS',
-    detail: ['Side infills'],
-  },
-  {
-    label: 'COMFORT',
-    detail: ['Lightning', 'Comfort & Design', 'Blade rotation'],
-  },
-  {
-    label: 'OVERVIEW',
-  },
-];
+import steps from './config';
 
 export default function VerticalLinearStepper() {
 
   const {
     activeStep,
     setActiveStep,
+    subStep,
+    setSubStep,
   } = React.useContext(AppContext);
 
   const handleNext = () => {
@@ -45,6 +26,15 @@ export default function VerticalLinearStepper() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  const updateSubStep = (index) => {
+    setSubStep(index);
+  }
+
+  const updateStep = (index) => {
+    setActiveStep(index);
+    setSubStep(0);
+  }
 
   const handleReset = () => {
     setActiveStep(0);
@@ -61,27 +51,35 @@ export default function VerticalLinearStepper() {
                   <Typography variant="caption">Last step</Typography>
                 ) : null
               }
+              className="labels"
+              onClick = {e => {
+                e.stopPropagation();
+                e.preventDefault();
+                updateStep(index)
+              }}
             >
-              {step.label}
+              {<b>{step.label}</b>}
             </StepLabel>
             <StepContent>
-              <Typography>{step.description}</Typography>
               <Box sx={{ mb: 2 }}>
                 <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                  </Button>
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    Back
-                  </Button>
+                  {
+                    (step.detail?.length && index < 4) ? step.detail.map((item, id)=> {
+                      return (
+                        <Button
+                          className="round-btn"
+                          variant="contained"
+                          sx={{ mt: 1, mr: 1, backgroundColor: id === subStep ? '#6774a6 !important': 'transparent'}}
+                          onClick = {e => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            updateSubStep(id);
+                          }}
+                        >
+                          {item}
+                        </Button>
+                      );
+                    }):[]                  }
                 </div>
               </Box>
             </StepContent>

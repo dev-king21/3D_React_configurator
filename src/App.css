@@ -44,7 +44,7 @@
 .config {
   display: flex;
   float: left;
-  width: 15%;
+  width: 250px;
   background-color: #002853;
   padding-left: 2%;
   padding-top: 5%;
@@ -60,7 +60,7 @@
 
 .window {
   display: inline-block;
-  width: 85%;  
+  width: 85%;
 }
 
 .setting {
@@ -110,17 +110,27 @@
 .prev-next {
   background-color: white;
   position: fixed;
-  bottom: 20px;
-  width: 300px;
+  bottom: 0px;
+  width: 350px;
   text-align: center;
   justify-content: center;
+  padding: 10px;
 }
 
 .prev-btn {
-  background-color: #002855 !important;
-  width: 150px;
+  /* background-color: #002855 !important; */
+  width: 100px;
 }
 .next-btn {
-  background-color: #002855 !important;
-  width: 150px;
+  /* background-color: #002855 !important; */
+  width: 100px;
+}
+.round-btn {
+  border-radius: 20px !important;
+  width: 170px;
+  background-color: transparent !important;
+}
+
+.labels {
+  font-weight: 700 !important;
 }

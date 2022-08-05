@@ -2,16 +2,24 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Divider from '@mui/material/Divider';
+import steps from './config';
+import AppContext from './context/AppContext';
 
 export default function Gallery() {
-  return (
+
+    const {
+        activeStep,
+        subStep,
+      } = React.useContext(AppContext);
+    
+    return (
     <div>
-        <div class="content-title">
-            <h1>Dimensions</h1>
-            <h6>Set the dimensions for your configuration and optionally add mounting walls.</h6>
+        <div className="content-title">
+            <h2>{activeStep < 4 && steps[activeStep].detail[subStep]}</h2>
+            <h4 >{activeStep < 4 && steps[activeStep].description[subStep]}</h4>
         </div>
         <Divider />
-        <div class="content-main">
+        <div className="content-main">
             <ImageList variant="woven" cols={3} gap={8}>
             {itemData.map((item) => (
                 <ImageListItem key={item.img}>
