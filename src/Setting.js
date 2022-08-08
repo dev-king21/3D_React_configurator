@@ -2,11 +2,12 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Gallery from './Gallery';
-import Grid from '@mui/material/Grid';
 import AppContext from './context/AppContext';
 import steps from './config';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-export default function Content() {
+export default function Setting() {
 
     const {
         activeStep,
@@ -17,6 +18,7 @@ export default function Content() {
     
 
     const handleNext = () => {        
+        if (activeStep === 4) return;
         if (steps[activeStep].detail === undefined || steps[activeStep].detail.length === subStep + 1) {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
             setSubStep(0);
@@ -41,18 +43,18 @@ export default function Content() {
         <Gallery />
         <Divider />
         <div className="prev-next" container spacing={2} columns={16}>
-            <Grid container spacing={2} columns={16}>
-                <Grid item xs={8}>
-                    <Button variant="contained" color="primary" size="medium" className="prev-btn" onClick={handleBack} disabled={(activeStep === 0 && subStep === 0)}>
+            <Row>
+                <Col xl={6} lg={6} md={6} xs={6}>
+                    <Button variant="contained" color="primary" size="medium" className="prev-btn step-btn" onClick={handleBack} disabled={(activeStep === 0 && subStep === 0)}>
                     Previous
                     </Button>
-                </Grid>
-                <Grid item xs={8}>
-                    <Button variant="contained" color="primary" size="medium" className="next-btn" onClick={handleNext}>
+                </Col>
+                <Col xl={6} lg={6} md={6} xs={6}>
+                    <Button variant="contained" color="primary" size="medium" className="next-btn step-btn" onClick={handleNext}>
                     Next
                     </Button>
-                </Grid>
-            </Grid>
+                </Col>
+            </Row>
         </div>
     </div>
   );

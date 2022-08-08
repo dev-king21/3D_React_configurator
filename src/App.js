@@ -1,12 +1,14 @@
-import { useState } from "react";
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Model } from "./Scene";
 import VerticalLinearStepper from './Stepper';
-import Content from './Details';
+import Setting from './Setting';
 import './App.css';
 import AppContext from './context/AppContext';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function App() {
 
@@ -22,19 +24,18 @@ function App() {
           setSubStep,
         }}
     >
-      <div className="container">
-        <div className="config">
+      <Container className="container">
+        <Row>
+        <Col xl={2} lg={2} md={3} sm={6} xs={12} className="stepper">
           <VerticalLinearStepper />
-        </div>
-        <div className="window">
-          <div className="setting">
-            <Content />
-          </div>
-          <div className="main">
-            <Canvas
+        </Col>
+        <Col xl={3} lg={3} md={4} sm={6} xs={12} className="config">
+          <Setting />
+        </Col>
+        <Col xl={7} lg={7} md={5} sm={12} xs={12} className="main">
+          <Canvas
               style={{
                 backgroundColor: "#111a21",
-                width: "90vw",
                 height: "100vh",
               }}
             >
@@ -47,9 +48,9 @@ function App() {
               <OrbitControls />
             </Canvas>
 
-          </div>
-        </div>
-      </div>
+        </Col>
+        </Row>
+      </Container>
 
     </AppContext.Provider>
   );

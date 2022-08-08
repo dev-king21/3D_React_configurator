@@ -4,6 +4,8 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Divider from '@mui/material/Divider';
 import steps from './config';
 import AppContext from './context/AppContext';
+import Dimension from './Dimension';
+import DesignStyles from './DesignStyles';
 
 export default function Gallery() {
 
@@ -15,9 +17,11 @@ export default function Gallery() {
     return (
     <div>
         <div className="content-title">
-            <h2>{activeStep < 4 && steps[activeStep].detail[subStep]}</h2>
-            <h4 >{activeStep < 4 && steps[activeStep].description[subStep]}</h4>
+            <h2>{activeStep < 5 && steps[activeStep].detail[subStep]}</h2>
+            <h4 >{activeStep < 5 && steps[activeStep].description[subStep]}</h4>
         </div>
+        <Dimension />
+        <DesignStyles />
         <Divider />
         <div className="content-main">
             <ImageList variant="woven" cols={3} gap={8}>
