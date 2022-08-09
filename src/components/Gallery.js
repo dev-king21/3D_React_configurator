@@ -1,10 +1,14 @@
 import * as React from 'react';
 import Divider from '@mui/material/Divider';
-import {steps} from './config/config';
-import AppContext from './context/AppContext';
+import {steps} from '../config/config';
+import AppContext from '../context/AppContext';
 import Dimension from './Dimension';
 import DesignStyles from './DesignStyles';
 import Colors from './Colors';
+import SideInfills from './SideInfills';
+import Lightning from './Lightning';
+import ComfortDesign from './ComfortDesign';
+import BladeRotation from './BladeRotation';
 
 export default function Gallery() {
 
@@ -16,6 +20,8 @@ export default function Gallery() {
     const render = (activeStep, subStep) => {
       const currentStep = steps[activeStep].detail[subStep];
       switch(currentStep) {
+        default:
+          return null;
         case "Dimensions":
           return <Dimension />
         case "Columns":
@@ -25,13 +31,13 @@ export default function Gallery() {
         case "Colors":
           return <Colors />
         case "Side infills":
-          return <Dimension />
+          return <SideInfills />
         case "Lightning":
-          return <Dimension />
-        case "Comfort&Design',":
-          return <Dimension />
+          return <Lightning />
+        case "Comfort&Design":
+          return <ComfortDesign />
         case "Blade rotation":
-          return <Dimension />
+          return <BladeRotation />
         case "Overview":
           return <Dimension />
       }
@@ -43,7 +49,7 @@ export default function Gallery() {
             <h2>{activeStep < 5 && steps[activeStep].detail[subStep]}</h2>
             <h6 >{activeStep < 5 && steps[activeStep].description[subStep]}</h6>
         </div>
-        <Divider />
+        <Divider className="mb-3"/>
         {render(activeStep, subStep)}
     </div>
   );

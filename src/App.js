@@ -1,10 +1,10 @@
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Model } from "./Scene";
-import VerticalLinearStepper from "./Stepper";
-import Setting from "./Setting";
-import "./App.css";
+import { Model } from "./components/Scene";
+import VerticalLinearStepper from "./components/Stepper";
+import Setting from "./components/Setting";
+import "./css/App.css";
 import AppContext from "./context/AppContext";
 import Grid from "@mui/material/Grid";
 

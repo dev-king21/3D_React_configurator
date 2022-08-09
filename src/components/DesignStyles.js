@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {styleImage} from './config/config';
+import {styleImage} from '../config/config';
 import ImageList from '@mui/material/ImageList';
 
 export default function DesignStyles() {
@@ -8,10 +8,11 @@ export default function DesignStyles() {
         styleImage.forEach((item) => {
             if (item.url === selected_url) {
                 document.getElementById(item.url).style.opacity = 1.0;
-                document.getElementById(item.url).style.border = "2px solid green";
+                document.getElementById(item.url).style.border = "5px solid #31d84a";
             }
             else {
                 document.getElementById(item.url).style.border = "0px";
+                document.getElementById(item.url).style.opacity = 0.7;
             }
         })
     }

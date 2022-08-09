@@ -2,8 +2,8 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Gallery from "./Gallery";
-import AppContext from "./context/AppContext";
-import { steps } from "./config/config";
+import AppContext from "../context/AppContext";
+import { steps } from "../config/config";
 
 export default function Setting() {
   const { activeStep, setActiveStep, subStep, setSubStep } =
