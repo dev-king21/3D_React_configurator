@@ -3,19 +3,25 @@ import { CirclePicker } from "react-color";
 import {FormControl, FormLabel, FormControlLabel, RadioGroup, Radio} from '@mui/material';
 import {wooddesign} from '../config/config';
 import ImageList from '@mui/material/ImageList';
+import state from "../state"
+import { useSnapshot } from "valtio";
 
 export default function Colors() {
+
+  const snap = useSnapshot(state);
+
   const selected = (selected_url) => {
     wooddesign.forEach((item) => {
         if (item.url === selected_url) {
             document.getElementById(item.url).style.opacity = 1.0;
-            document.getElementById(item.url).style.border = "2px solid green";
+            document.getElementById(item.url).style.border = "5px solid #31d84a";
         }
         else {
             document.getElementById(item.url).style.border = "0px";
             document.getElementById(item.url).style.opacity = 0.7;
           }
     })
+    state.items[snap.texture] = selected_url;
   }
 
   const handleChange = (event) => {
@@ -27,14 +33,11 @@ export default function Colors() {
     }
   }
 
-  const [hex, setHex] = useState("#d0021b");
   return (
     <div className="colorPicker mt-5">
       <CirclePicker
-        color={hex}
-        onChange={(color) => {
-          setHex(color.hex);
-        }}
+        color={snap.items[snap.current]}
+        onChange={(color) => {state.items[snap.current] = color.hex; }}
       />
     <FormControl className = "mt-5">
       <FormLabel id="demo-radio-buttons-group-label">Color Type</FormLabel>

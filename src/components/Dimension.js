@@ -24,7 +24,7 @@ export default function Dimension() {
             class="quantity"
             min="0"
             name="quantity"
-            value="1"
+            value={1}
             type="number"
           />
           <button
