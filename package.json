@@ -14,6 +14,8 @@
     "bootstrap": "^5.2.0",
     "react": "^18.2.0",
     "react-bootstrap-validation": "^0.1.11",
+    "react-circle-color-picker": "^1.0.9",
+    "react-color": "^2.19.3",
     "react-colorful": "^5.5.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

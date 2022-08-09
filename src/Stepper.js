@@ -1,47 +1,42 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import StepContent from '@mui/material/StepContent';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import AppContext from './context/AppContext';
-import steps from './config';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import StepContent from "@mui/material/StepContent";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import AppContext from "./context/AppContext";
+import { steps } from "./config/config";
 
 export default function VerticalLinearStepper() {
+  const { activeStep, setActiveStep, subStep, setSubStep } =
+    React.useContext(AppContext);
 
-  const {
-    activeStep,
-    setActiveStep,
-    subStep,
-    setSubStep,
-  } = React.useContext(AppContext);
+  // const handleNext = () => {
+  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  // };
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  // const handleBack = () => {
+  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  // };
 
   const updateSubStep = (index) => {
     setSubStep(index);
-  }
+  };
 
   const updateStep = (index) => {
     setActiveStep(index);
     setSubStep(0);
-  }
+  };
 
   const handleReset = () => {
     setActiveStep(0);
   };
 
   return (
-    <Box sx={{ maxWidth: 400 }}>
+    <Box sx={{ maxWidth: 400 }} className="p-3">
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.label}>
@@ -52,10 +47,10 @@ export default function VerticalLinearStepper() {
                 ) : null
               }
               className="labels"
-              onClick = {e => {
+              onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                updateStep(index)
+                updateStep(index);
               }}
             >
               {<b>{step.label}</b>}
@@ -63,23 +58,32 @@ export default function VerticalLinearStepper() {
             <StepContent>
               <Box sx={{ mb: 2 }}>
                 <div>
-                  {
-                    (step.detail?.length && index < 4) ? step.detail.map((item, id)=> {
-                      return (
-                        <Button
-                          className="round-btn"
-                          variant="contained"
-                          sx={{ mt: 1, mr: 1, backgroundColor: id === subStep ? '#6774a6 !important': 'transparent'}}
-                          onClick = {e => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            updateSubStep(id);
-                          }}
-                        >
-                          {item}
-                        </Button>
-                      );
-                    }):[]                  }
+                  {step.detail?.length && index < 4
+                    ? step.detail.map((item, id) => {
+                        return (
+                          <Button
+                            className="round-btn"
+                            variant="contained"
+                            sx={{
+                              mt: 1,
+                              mr: 1,
+                              backgroundColor:
+                                id === subStep
+                                  ? "#6774a6 !important"
+                                  : "transparent",
+                            }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              updateSubStep(id);
+                            }}
+                            key={id}
+                          >
+                            {item}
+                          </Button>
+                        );
+                      })
+                    : []}
                 </div>
               </Box>
             </StepContent>

@@ -1,11 +1,10 @@
 import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
 import Divider from '@mui/material/Divider';
-import steps from './config';
+import {steps} from './config/config';
 import AppContext from './context/AppContext';
 import Dimension from './Dimension';
 import DesignStyles from './DesignStyles';
+import Colors from './Colors';
 
 export default function Gallery() {
 
@@ -14,81 +13,39 @@ export default function Gallery() {
         subStep,
       } = React.useContext(AppContext);
     
-    return (
-    <div>
-        <div className="content-title">
-            <h2>{activeStep < 5 && steps[activeStep].detail[subStep]}</h2>
-            <h4 >{activeStep < 5 && steps[activeStep].description[subStep]}</h4>
-        </div>
-        <Dimension />
-        <DesignStyles />
-        <Divider />
-        <div className="content-main">
-            <ImageList variant="woven" cols={3} gap={8}>
-            {itemData.map((item) => (
-                <ImageListItem key={item.img}>
-                <img
-                    src={`${item.img}?w=161&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.title}
-                    loading="lazy"
-                />
-                </ImageListItem>
-            ))}
-            </ImageList>
-        </div>
+    const render = (activeStep, subStep) => {
+      const currentStep = steps[activeStep].detail[subStep];
+      switch(currentStep) {
+        case "Dimensions":
+          return <Dimension />
+        case "Columns":
+          return <Dimension />
+        case "Design styles":
+          return <DesignStyles />
+        case "Colors":
+          return <Colors />
+        case "Side infills":
+          return <Dimension />
+        case "Lightning":
+          return <Dimension />
+        case "Comfort&Design',":
+          return <Dimension />
+        case "Blade rotation":
+          return <Dimension />
+        case "Overview":
+          return <Dimension />
+      }
+    }
 
+    return (
+    <div className="p-3">
+        <div className="content-title mb-4">
+            <h2>{activeStep < 5 && steps[activeStep].detail[subStep]}</h2>
+            <h6 >{activeStep < 5 && steps[activeStep].description[subStep]}</h6>
+        </div>
+        <Divider />
+        {render(activeStep, subStep)}
     </div>
   );
 }
 
-const itemData = [
-  {
-    img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
-    title: 'Bed',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
-    title: 'Kitchen',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
-    title: 'Sink',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
-    title: 'Books',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622',
-    title: 'Chairs',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62',
-    title: 'Candle',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1530731141654-5993c3016c77',
-    title: 'Laptop',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61',
-    title: 'Doors',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7',
-    title: 'Coffee',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee',
-    title: 'Storage',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4',
-    title: 'Coffee table',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1588436706487-9d55d73a39e3',
-    title: 'Blinds',
-  },
-];
