@@ -3,6 +3,7 @@ import Divider from '@mui/material/Divider';
 import {steps} from '../config/config';
 import AppContext from '../context/AppContext';
 import Dimension from './Dimension';
+import Columns from './Columns';
 import DesignStyles from './DesignStyles';
 import Colors from './Colors';
 import SideInfills from './SideInfills';
@@ -25,7 +26,7 @@ export default function Gallery() {
         case "Dimensions":
           return <Dimension />
         case "Columns":
-          return <Dimension />
+          return <Columns />
         case "Design styles":
           return <DesignStyles />
         case "Colors":

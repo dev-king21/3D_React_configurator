@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 import "../css/customInputBtn.css";
 
-export default function ColorSlider() {
+export default function Dimension() {
   const [xWidth, setXWidth] = useState(3000);
   // const [yWidth, setYWidth] = useState(2500);
   const minDim = 1800;

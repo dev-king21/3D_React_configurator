@@ -181,3 +181,19 @@ input[type=radio]:checked + label>img {
 .woodStyle {
   visibility: hidden;
 }
+
+.base-column {
+  padding: 10px !important;
+  color: black !important;
+}
+
+.base-column:hover {
+  cursor: pointer;
+}
+
+/* .column-box {
+  text-align: center;
+} */
+.add-column-btn {
+  width: 100%;
+}
