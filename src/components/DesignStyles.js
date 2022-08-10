@@ -6,12 +6,11 @@ import state from "../state"
 
 export default function DesignStyles() {
 
-    const snap = useSnapshot(state);
-
     const selected = (selected_url) => {
         styleImage.forEach((item) => {
             if (item.url === selected_url) {
-                state.items[snap.current] = item.color;
+                state.designStyle = item.color;
+                state.isDesign = true;
                 document.getElementById(item.url).style.opacity = 1.0;
                 document.getElementById(item.url).style.border = "5px solid #31d84a";
             }

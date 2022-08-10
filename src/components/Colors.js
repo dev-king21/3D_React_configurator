@@ -27,19 +27,24 @@ export default function Colors() {
   const handleChange = (event) => {
     if (event.target.value === 'Wooddesign') {
       document.getElementsByClassName('woodStyle')[0].style.visibility = 'visible';
+      document.getElementsByClassName('bladeColor')[0].style.display = 'none';
     }
     else {
       document.getElementsByClassName('woodStyle')[0].style.visibility = 'hidden';
+      document.getElementsByClassName('bladeColor')[0].style.display = 'flex';
     }
   }
 
   return (
     <div className="colorPicker mt-5">
+      <h6>Color structure and columns</h6>
       <CirclePicker
-        color={snap.items[snap.current]}
-        onChange={(color) => {state.items[snap.current] = color.hex; }}
+        className="mt-3"
+        color={snap.structure.color}
+        onChange={(color) => {state.isDesign = false; state.structure.color = color.hex; }}
       />
-    <FormControl className = "mt-5">
+
+    <FormControl className = "mt-5 mb-3">
       <FormLabel id="demo-radio-buttons-group-label">Color Type</FormLabel>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
@@ -51,8 +56,14 @@ export default function Colors() {
         <FormControlLabel value="Wooddesign" control={<Radio />} label="Wooddesign" />
       </RadioGroup>
     </FormControl>
+    <h6>Color Blades</h6>
+    <CirclePicker
+        className="mt-3 bladeColor"
+        color={snap.blades.color}
+        onChange={(color) => {state.isDesign = false; state.blades.color = color.hex; }}
+      />
     
-    <ImageList variant="woven" cols={2} gap={15} className="mt-2 woodStyle">
+    <ImageList variant="woven" cols={2} gap={15} className="mt-3 woodStyle">
         {wooddesign.map((item) => (
             <label for={item.title}>
                 <img

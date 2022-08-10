@@ -8,13 +8,6 @@ import { useGLTF } from '@react-three/drei'
 import { useEffect, useState } from 'react'
 import { useSnapshot } from "valtio"
 import state from "../state"
-import {
-  BoxBufferGeometry,
-  MathUtils,
-  Mesh,
-  MeshStandardMaterial,
-  TextureLoader,
-} from 'three';
 
 export function Model(props) {
   const [hovered, setHovered] = useState(null);
@@ -29,10 +22,11 @@ export function Model(props) {
     )}'), auto`;
   }, [hovered, snap.items]);
 
-  const mesh1 = new Mesh(nodes.imagetostl_mesh_1.geometry, materials.mat0);
-  const mesh2 = new Mesh(nodes.imagetostl_mesh_2.geometry, materials.mat1);
-  const mesh3 = new Mesh(nodes.imagetostl_mesh_3.geometry, materials.mat6);
-  const textureLoader = new TextureLoader();
+  // const mesh1 = new Mesh(nodes.imagetostl_mesh_1.geometry, materials.mat0);
+  // const mesh2 = new Mesh(nodes.imagetostl_mesh_2.geometry, materials.mat1);
+  // const mesh3 = new Mesh(nodes.imagetostl_mesh_3.geometry, materials.mat6);
+  // const textureLoader = new TextureLoader();
+
 
   return (
     <group {...props} 
@@ -42,7 +36,7 @@ export function Model(props) {
         e.stopPropagation(), setHovered(e.object.material.name)
       )}
       onPointerOut={(e) => e.intersections.length === 0 && setHovered(null)}
-      onPointerMissed={() => (state.current = null)}
+      // onPointerMissed={() => (state.current = null)}
       onPointerDown={(e) => (
         e.stopPropagation(), (state.current = e.object.material.name)
       )}

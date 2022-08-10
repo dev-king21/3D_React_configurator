@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Model } from "./components/Simple";
+import { Model } from "./components/Scene";
 import VerticalLinearStepper from "./components/Stepper";
 import Setting from "./components/Setting";
 import "./css/App.css";
@@ -40,7 +40,7 @@ function App() {
         <ambientLight intensity={0.3} />
         <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
         <Suspense fallback={null}>
-          <Model scale={0.008}/>
+          <Model scale={0.01} position={[-1, -0.5, 0.5]}/>
           <Environment preset="city" />
           <ContactShadows 
             rotation-x={Math.PI / 2} 
