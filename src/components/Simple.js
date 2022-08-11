@@ -41,7 +41,7 @@ export function Model(props) {
         e.stopPropagation(), (state.current = e.object.material.name)
       )}
     >
-      <mesh geometry={nodes.imagetostl_mesh_1.geometry} material-color={snap.items[snap.current]} material={materials.mat0} />
+      <mesh geometry={nodes.imagetostl_mesh_1.geometry} material={materials.mat0} material-color={snap.isDesign === true?snap.designStyle:snap.structure.color}  />
       <mesh geometry={nodes.imagetostl_mesh_2.geometry} material={materials.mat1} />
       <mesh geometry={nodes.imagetostl_mesh_3.geometry} material={materials.mat6} />
     </group>

@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Gallery from "./Gallery";
 import AppContext from "../context/AppContext";
-import { steps } from "../config/config";
+import { steps } from "../utils/constant";
 
 export default function Setting() {
   const { activeStep, setActiveStep, subStep, setSubStep } =

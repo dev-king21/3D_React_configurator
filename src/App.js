@@ -1,4 +1,5 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useRef  } from "react";
+import { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Model } from "./components/Scene";
@@ -8,12 +9,20 @@ import "./css/App.css";
 import AppContext from "./context/AppContext";
 import Grid from "@mui/material/Grid";
 import { ContactShadows, Environment} from '@react-three/drei'
+import Loading from './components/Loading';
 
 function App() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [subStep, setSubStep] = React.useState(0);
+  const [isloading, setIsloading] = React.useState(false);
 
-  return (
+  useEffect(() => {
+    setTimeout(() => {
+      setIsloading(true);
+    }, 3000);
+  });
+
+  return isloading ? (
     <AppContext.Provider
       value={{
         activeStep,
@@ -40,6 +49,26 @@ function App() {
         <ambientLight intensity={0.3} />
         <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
         <Suspense fallback={null}>
+          <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -0.5, 0]}>
+            <planeBufferGeometry attach="geometry" args={[10, 10]} />
+            <meshPhongMaterial attach="material" color="white" />
+          </mesh>
+          <mesh rotation={[0, -Math.PI/2, 0]} position={[5, 0, 0]}>
+            <planeBufferGeometry attach="geometry" args={[10, 5]} />
+            <meshPhongMaterial attach="material" color="#dddddd" />
+          </mesh>
+          <mesh rotation={[0, Math.PI/2, 0]} position={[-5, 0, 0]}>
+            <planeBufferGeometry attach="geometry" args={[10, 5]} />
+            <meshPhongMaterial attach="material" color="#dddddd" />
+          </mesh>
+          <mesh rotation={[0, 0, 0]} position={[0, 0, -5]}>
+            <planeBufferGeometry attach="geometry" args={[10, 5]} />
+            <meshPhongMaterial attach="material" color="#dddddd" />
+          </mesh>
+          <mesh rotation={[0, Math.PI, 0]} position={[0, 0, 5]}>
+            <planeBufferGeometry attach="geometry" args={[10, 5]} />
+            <meshPhongMaterial attach="material" color="#dddddd" />
+          </mesh>
           <Model scale={0.01} position={[-1, -0.5, 0.5]}/>
           <Environment preset="city" />
           <ContactShadows 
@@ -52,12 +81,16 @@ function App() {
             far={0.8} 
           />
         </Suspense>
-        <OrbitControls />
-          </Canvas>
+        <OrbitControls 
+          enableZoom={true}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={-Math.PI / 2}
+        />
+        </Canvas>
         </Grid>
       </Grid>
     </AppContext.Provider>
-  );
+  ):(<Loading />);
 }
 
 export default App;

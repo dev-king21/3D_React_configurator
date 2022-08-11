@@ -53,6 +53,10 @@
   color: #31d84a;
 }
 
+.step-label {
+  color: white !important;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -179,7 +183,7 @@ input[type=radio]:checked + label>img {
 }
 
 .woodStyle {
-  visibility: hidden;
+  display: none;
 }
 
 .base-column {
@@ -200,4 +204,7 @@ input[type=radio]:checked + label>img {
 .canvas {
   background-color: #999999 !important;
   height: '100vh' !important;
+}
+.loadingScreen {
+  width: 1600px !important;
 }

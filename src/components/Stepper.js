@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import AppContext from "../context/AppContext";
-import { steps } from "../config/config";
+import { steps } from "../utils/constant";
 
 export default function VerticalLinearStepper() {
   const { activeStep, setActiveStep, subStep, setSubStep } =
@@ -53,7 +53,7 @@ export default function VerticalLinearStepper() {
                 updateStep(index);
               }}
             >
-              {<b>{step.label}</b>}
+              <b className="step-label">{step.label}</b>
             </StepLabel>
             <StepContent>
               <Box sx={{ mb: 2 }}>
