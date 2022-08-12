@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { CirclePicker } from "react-color";
 import {
   FormControl,
@@ -14,6 +14,7 @@ import { useSnapshot } from "valtio";
 
 export default function Colors() {
   const snap = useSnapshot(state);
+  const [colorType, setColorType] = useState("textured");
 
   const selected = (selected_url) => {
     wooddesign.forEach((item) => {
@@ -36,11 +37,12 @@ export default function Colors() {
       document.getElementsByClassName("woodStyle")[0].style.display = "none";
       document.getElementsByClassName("bladeColor")[0].style.display = "flex";
     }
+    setColorType(event.target.value);
     console.log(document.getElementsByClassName("woodStyle")[0]);
   };
 
   return (
-    <div className="colorPicker mt-5">
+    <div className="colorPicker mt-5 content-main">
       <h6>Color structure and columns</h6>
       <CirclePicker
         className="mt-3"
@@ -55,17 +57,17 @@ export default function Colors() {
         <FormLabel id="demo-radio-buttons-group-label">Color Type</FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="Textured"
           name="radio-buttons-group"
-          onChange={(ev) => handleChange(ev)}
+          value={colorType}
+          onChange={handleChange}
         >
           <FormControlLabel
-            value="Textured"
+            value="textured"
             control={<Radio />}
             label="Textured"
           />
           <FormControlLabel
-            value="Wooddesign"
+            value="wooddesign"
             control={<Radio />}
             label="Wooddesign"
           />

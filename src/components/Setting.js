@@ -32,7 +32,7 @@ export default function Setting() {
   };
 
   return (
-    <div className="content h-70">
+    <div className="content w-100">
       <Gallery />
       <Divider />
       <div className="prev-next-btn">

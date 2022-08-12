@@ -4,17 +4,16 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Button from "@mui/material/Button";
+import { Icon } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
 
-export default function BasicStack() {
+export default function Columns() {
   return (
+    <div className="mt-5 content-main">
     <Box className="column-box">
       <h5>Base Columns</h5>
       <Stack spacing={2} className="mt-3 mb-5">
@@ -33,6 +32,7 @@ export default function BasicStack() {
           Add extra column
         </Button>
 
-    </Box>
+    </Box>      
+    </div>
   );
 }

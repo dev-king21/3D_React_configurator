@@ -1,7 +1,6 @@
 import * as React from "react";
 import { styleImage } from "../utils/constant";
 import ImageList from "@mui/material/ImageList";
-import { useSnapshot } from "valtio";
 import state from "../state";
 
 export default function DesignStyles() {
