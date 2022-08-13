@@ -1,28 +1,40 @@
 import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 import CustomInput from "./CustomInput";
+import state from "../state";
+import { useSnapshot } from "valtio";
+import {lengths} from '../utils/constant';
 
 export default function Dimension() {
-  const minDim = 1800;
-  const maxDim = 6400;
 
-  const h_min = 1500;
-  const h_max = 3000;
+  const snap = useSnapshot(state);
 
-  const [xWidth, setXWidth] = useState(3000);
-  const [yWidth, setYWidth] = useState(2500);
-  const [height, setHeight] = useState(2000);
+  const minX = lengths.min_width;
+  const maxX = lengths.max_width;
+
+  const minY = lengths.min_height;
+  const maxY = lengths.max_height;
+
+  const h_min = lengths.min_depth;
+  const h_max = lengths.max_depth;
+
+  const [xWidth, setXWidth] = useState(snap.length.width);
+  const [yWidth, setYWidth] = useState(snap.length.height);
+  const [height, setHeight] = useState(snap.length.depth);
 
   const handleXSliderChange = (event, newVal) => {
     setXWidth(newVal);
+    state.length.width = newVal;
   };
 
   const handleYSliderChange = (event, newVal) => {
     setYWidth(newVal);
+    state.length.height = newVal;
   };
 
   const handleHSliderChange = (event, newVal) => {
     setHeight(newVal);
+    state.length.depth = newVal;
   };
 
   const validationVal = (min, max, val) => {
@@ -31,16 +43,27 @@ export default function Dimension() {
   };
 
   const handleValChange = (event, type) => {
-    let _val = event.target.value;
+    let _val = Number(event.target.value);
     switch (type) {
       case "xWidth":
-        setXWidth(Number(_val));
+        // if (_val < minX ) _val = minX;
+        if (_val > maxX ) _val = maxX;
+        setXWidth(_val);
+        state.length.width = _val;
         break;
       case "yWidth":
-        setYWidth(Number(_val));
+        // if (_val < minY ) _val = minY;
+        if (_val > maxY ) _val = maxY;
+        setYWidth(_val);
+        state.length.height = _val;
         break;
       case "height":
-        setHeight(Number(_val));
+        // if (_val < h_min ) _val = h_min;
+        if (_val > h_max ) _val = h_max;
+        setHeight(_val);
+        state.length.depth = _val;
+        break;
+      default:
         break;
     }
   };
@@ -48,27 +71,49 @@ export default function Dimension() {
   const handlePlusChange = (type) => {
     switch (type) {
       case "xWidth":
-        if (validationVal(minDim, maxDim, xWidth + 1)) setXWidth(xWidth + 1);
+        if (validationVal(minX, maxX, xWidth + 1)) {
+          setXWidth(xWidth + 1);
+          state.length.width = xWidth + 1;
+        }
         break;
       case "yWidth":
-        if (validationVal(minDim, maxDim, yWidth + 1)) setYWidth(yWidth + 1);
+        if (validationVal(minY, maxY, yWidth + 1)) {
+          setYWidth(yWidth + 1);
+          state.length.height = yWidth + 1;
+        }
         break;
       case "height":
-        if (validationVal(h_min, h_max, height + 1)) setHeight(height + 1);
+        if (validationVal(h_min, h_max, height + 1)) {
+          setHeight(height + 1);
+          state.length.depth = height + 1;
+        }
         break;
-    }
+      default:
+        break;
+      }
   };
 
   const handleMinusChange = (type) => {
     switch (type) {
       case "xWidth":
-        if (validationVal(minDim, maxDim, xWidth - 1)) setXWidth(xWidth - 1);
+        if (validationVal(minX, maxX, xWidth - 1)) {
+          setXWidth(xWidth - 1);
+          state.length.width = xWidth - 1;
+        }
         break;
       case "yWidth":
-        if (validationVal(minDim, maxDim, xWidth - 1)) setYWidth(yWidth - 1);
+        if (validationVal(minY, maxY, yWidth - 1)) {
+          setYWidth(yWidth - 1);
+          state.length.width = yWidth - 1;
+        }
         break;
       case "height":
-        if (validationVal(h_min, h_max, height - 1)) setHeight(height - 1);
+        if (validationVal(h_min, h_max, height - 1)) {
+          setHeight(height - 1);
+          state.length.height = height - 1;
+        }
+        break;
+      default:
         break;
     }
   };
@@ -85,17 +130,17 @@ export default function Dimension() {
           handleMinusChange={handleMinusChange}
         />
         <div className="d-flex align-items-center mt-3">
-          <div>{minDim}</div>
+          <div>{minX}</div>
           <Slider
             size="small"
             color="primary"
-            value={typeof xWidth === "number" ? xWidth : minDim}
+            value={typeof xWidth === "number" ? xWidth : minX}
             onChange={handleXSliderChange}
             className="mx-1"
-            min={minDim}
-            max={maxDim}
+            min={minX}
+            max={maxX}
           />
-          <div>{maxDim}</div>
+          <div>{maxX}</div>
         </div>
       </div>
       <div className="mb-4 pb-3">
@@ -108,17 +153,17 @@ export default function Dimension() {
           handleMinusChange={handleMinusChange}
         />
         <div className="d-flex align-items-center mt-3">
-          <div>{minDim}</div>
+          <div>{minY}</div>
           <Slider
             size="small"
             color="primary"
-            value={typeof yWidth === "number" ? yWidth : minDim}
+            value={typeof yWidth === "number" ? yWidth : minY}
             onChange={handleYSliderChange}
             className="mx-1"
-            min={minDim}
-            max={maxDim}
+            min={minY}
+            max={maxY}
           />
-          <div>{maxDim}</div>
+          <div>{maxY}</div>
         </div>
       </div>
 

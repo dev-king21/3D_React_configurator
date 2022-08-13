@@ -157,3 +157,15 @@ export const bladeRotation = [
     url: 'https://dam.renson.eu/Sites/A/Public_Publications/12787?encoding=UTF-8',
   },
 ];
+
+export const lengths = {
+  int_width: 6040,
+  min_width: 1800,
+  max_width: 9400,
+  int_height: 3043,
+  min_height: 1800,
+  max_height: 4500,
+  int_depth: 4001,
+  min_depth: 450,
+  max_depth: 4500,
+}
