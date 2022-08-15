@@ -149,10 +149,12 @@ export const comfortDesign = [
 
 export const bladeRotation = [
   {
+    rotation: [-Math.PI, 0, -2.09],
     title: 'Indirect sunlight',
     url: 'https://dam.renson.eu/Sites/A/Public_Publications/12777?encoding=UTF-8',
   },
   {
+    rotation: [-Math.PI, 0, -1.09],
     title: 'Direct sunlight',
     url: 'https://dam.renson.eu/Sites/A/Public_Publications/12787?encoding=UTF-8',
   },
@@ -168,4 +170,6 @@ export const lengths = {
   int_depth: 4001,
   min_depth: 450,
   max_depth: 4500,
+  moveLimit: 2000,
+  extra_add_length: 3000,
 }

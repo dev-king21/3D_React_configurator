@@ -8,7 +8,7 @@ import Setting from "./components/Setting";
 import "./css/App.css";
 import AppContext from "./context/AppContext";
 import Grid from "@mui/material/Grid";
-import { ContactShadows, Environment} from '@react-three/drei'
+import { ContactShadows } from '@react-three/drei'
 import Loading from './components/Loading';
 import { useFrame } from '@react-three/fiber'
 
@@ -56,19 +56,21 @@ function App() {
             style={{
               height: "100vh",
             }}
-            shadows dpr={[1, 2]} camera={{ position: [0, 0, 4], fov: 50 }}
+            shadows camera={{ position: [0, 0, 4], fov: 50 }}
           >
           <Sky
              distance={450000}
              sunPosition={[5, 1, 8]}
              inclination={0}
              azimuth={0.25}
-             castShadow
          />
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={0.4}/>
         <spotLight castShadow intensity={1} angle={0.5} penumbra={1} position={[5, 25, 20]} />
+        <directionalLight
+          position={[2, 10, 5]} castShadow shadow-mapSize-width={1024} shadow-mapSize-height={1024}
+        />
         <Suspense fallback={<Loader />}>
-          <mesh receiveShadow rotation={[-Math.PI/2, 0, 0]} position={[0, -1.3, 0]}>
+          <mesh receiveShadow rotation={[-Math.PI/2, 0, 0]} position={[0, -1.22, 0]}>
             <boxGeometry attach="geometry" args={[8, 8, 1.5]} />
             <meshPhongMaterial attach="material" color="white" />
           </mesh>

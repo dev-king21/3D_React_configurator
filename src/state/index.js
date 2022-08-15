@@ -10,6 +10,7 @@ const state = proxy({
   blades: {
     color: '#ffffff',
     texture: '',
+    rotation: [-Math.PI, 0, -2.09],
   },
   structure: {
     color: '#ffffff',
