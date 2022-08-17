@@ -26,11 +26,11 @@ export default function Colors() {
         document.getElementById(item.url).style.opacity = 0.7;
       }
     });
-    state.items[snap.blades.texture] = selected_url;
+    state.blades.texture = selected_url;
   };
 
   const handleChange = (event) => {
-    if (event.target.value === "Wooddesign") {
+    if (event.target.value === "wooddesign") {
       document.getElementsByClassName("woodStyle")[0].style.display = "grid";
       document.getElementsByClassName("bladeColor")[0].style.display = "none";
     } else {
@@ -38,7 +38,8 @@ export default function Colors() {
       document.getElementsByClassName("bladeColor")[0].style.display = "flex";
     }
     setColorType(event.target.value);
-    console.log(document.getElementsByClassName("woodStyle")[0]);
+    state.isTexture = true;
+    state.blades.texture = wooddesign[0].url;
   };
 
   return (
@@ -83,7 +84,7 @@ export default function Colors() {
         }}
       />
 
-      <ImageList variant="woven" cols={2} gap={15} className="mt-3 woodStyle">
+      <ImageList variant="woven" cols={2} gap={15} className="mt-3 woodStyle" sx={{ display: 'none' }}>
         {wooddesign.map((item) => (
           <label for={item.title}>
             <img

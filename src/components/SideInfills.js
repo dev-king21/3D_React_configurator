@@ -1,6 +1,7 @@
 import * as React from "react";
 import { sideStyles } from "../utils/constant";
 import ImageList from "@mui/material/ImageList";
+import { BsPlusCircleFill } from "react-icons/bs";
 
 export default function SideInfills() {
   const selected = (selected_url) => {
@@ -19,7 +20,7 @@ export default function SideInfills() {
     <div className="content-main">
       <ImageList variant="woven" cols={2} gap={15}>
         {sideStyles.map((item) => (
-          <label for={item.title}>
+          <label for={item.title} className="add-label">
             <img
               src={item.url}
               alt={item.url}
@@ -35,6 +36,7 @@ export default function SideInfills() {
             <div className="moreInfo">
               <u>More Info</u>
             </div>
+            <BsPlusCircleFill className="add-new"/>
           </label>
         ))}
       </ImageList>

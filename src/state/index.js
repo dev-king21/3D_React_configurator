@@ -5,7 +5,7 @@ import {lengths} from '../utils/constant'
 // the canvas and the dom, both can write to it and/or react to it.
 const state = proxy({
   isDesign: null,
-  isTexture: null,
+  isTexture: false,
   designStyle: null,
   blades: {
     color: '#ffffff',
@@ -29,6 +29,23 @@ const state = proxy({
     width: lengths.int_width,
     height: lengths.int_height,
     depth: lengths.int_depth,
+  },
+  columns: {
+    editing: false,
+    editingColumn: null,
+    minPos: 180,
+    maxPos: 800,
+    pos: [0,0,0,0,0,0,0,0],
+    isShift: [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ],
   }
 });
 

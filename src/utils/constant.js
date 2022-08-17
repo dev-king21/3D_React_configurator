@@ -164,12 +164,13 @@ export const lengths = {
   int_width: 6040,
   min_width: 1800,
   max_width: 9400,
-  int_height: 3043,
+  int_height: 4001,
   min_height: 1800,
   max_height: 4500,
-  int_depth: 4001,
+  int_depth: 3043,
   min_depth: 450,
-  max_depth: 4500,
+  max_depth: 3500,
   moveLimit: 2000,
-  extra_add_length: 3000,
+  extra_add_length: 2000,
+  mid_length_limit: 7200, //when over than this add extra bar
 }

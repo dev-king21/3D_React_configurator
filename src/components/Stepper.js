@@ -9,9 +9,10 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import AppContext from "../context/AppContext";
 import { steps } from "../utils/constant";
+import state from '../state';
 
 export default function VerticalLinearStepper() {
-  const { activeStep, setActiveStep, subStep, setSubStep } =
+  const { activeStep, setActiveStep, subStep, setSubStep,  } =
     React.useContext(AppContext);
 
   // const handleNext = () => {
@@ -23,10 +24,12 @@ export default function VerticalLinearStepper() {
   // };
 
   const updateSubStep = (index) => {
+    state.columns.editing = false;
     setSubStep(index);
   };
 
   const updateStep = (index) => {
+    state.columns.editing = false;
     setActiveStep(index);
     setSubStep(0);
   };
@@ -41,11 +44,6 @@ export default function VerticalLinearStepper() {
         {steps.map((step, index) => (
           <Step key={step.label}>
             <StepLabel
-              optional={
-                index === 4 ? (
-                  <Typography variant="caption">Last step</Typography>
-                ) : null
-              }
               className="labels"
               onClick={(e) => {
                 e.stopPropagation();

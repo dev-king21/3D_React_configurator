@@ -5,7 +5,7 @@ import state from "../state";
 import { useSnapshot } from "valtio";
 import {lengths} from '../utils/constant';
 
-export default function Dimension() {
+const Dimension = () => {
 
   const snap = useSnapshot(state);
 
@@ -24,6 +24,16 @@ export default function Dimension() {
 
   const handleXSliderChange = (event, newVal) => {
     setXWidth(newVal);
+    if (newVal > lengths.mid_length_limit) {
+      if (snap.columns.isShift[4] === false) {
+        state.columns.isShift[4] = true;
+        state.columns.pos[4] = snap.columns.maxPos;  
+      }
+      if (snap.columns.isShift[6] === false) {
+        state.columns.isShift[6] = true;
+        state.columns.pos[6] = snap.columns.maxPos;  
+      }
+    }
     state.length.width = newVal;
   };
 
@@ -104,13 +114,13 @@ export default function Dimension() {
       case "yWidth":
         if (validationVal(minY, maxY, yWidth - 1)) {
           setYWidth(yWidth - 1);
-          state.length.width = yWidth - 1;
+          state.length.height = yWidth - 1;
         }
         break;
       case "height":
         if (validationVal(h_min, h_max, height - 1)) {
           setHeight(height - 1);
-          state.length.height = height - 1;
+          state.length.depth = height - 1;
         }
         break;
       default:
@@ -193,3 +203,5 @@ export default function Dimension() {
     </div>
   );
 }
+
+export default Dimension

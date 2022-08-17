@@ -4,10 +4,15 @@ import Divider from "@mui/material/Divider";
 import Gallery from "./Gallery";
 import AppContext from "../context/AppContext";
 import { steps } from "../utils/constant";
+import { useSnapshot } from 'valtio';
+import state from '../state';
+import { BsChevronCompactLeft, BsChevronCompactUp } from "react-icons/bs";
 
 export default function Setting() {
-  const { activeStep, setActiveStep, subStep, setSubStep } =
+  const { activeStep, setActiveStep, subStep, setSubStep, setSidebar } =
     React.useContext(AppContext);
+
+  const snap = useSnapshot(state);
 
   const handleNext = () => {
     if (activeStep === 4) return;
@@ -22,7 +27,7 @@ export default function Setting() {
     }
   };
 
-  const handleBack = () => {
+  const handlePrev = () => {
     if (subStep === 0) {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
       setSubStep(steps[activeStep - 1].detail.length - 1);
@@ -31,17 +36,31 @@ export default function Setting() {
     }
   };
 
+  const handleBack = () => {
+    state.columns.editing = false;
+  }
+
+  const sideHide = () => {
+    setSidebar(false);
+  }
+
   return (
-    <div className="content w-100">
+    <div className="content w-100" sx={{ position: 'relative' }}>
+      <div className="toggle-sidebar-2" onClick={sideHide}>
+        {window.matchMedia('(min-width: 900px)').matches ? 
+          <BsChevronCompactLeft />:<BsChevronCompactUp />  
+        }
+      </div>
       <Gallery />
       <Divider />
-      <div className="prev-next-btn">
+      {snap.columns.editing === false ?
+        <div className="prev-next-btn">
         <Button
           variant="contained"
           color="primary"
           size="medium"
           className="prev-btn step-btn"
-          onClick={handleBack}
+          onClick={handlePrev}
           disabled={activeStep === 0 && subStep === 0}
         >
           Previous
@@ -55,7 +74,20 @@ export default function Setting() {
         >
           Next
         </Button>
-      </div>
+        </div>
+        :
+        <div className="text-center prev-next-btn">
+          <Button
+            variant="contained"
+            color="primary"
+            size="medium"
+            className="back-btn"
+            onClick={handleBack}
+          >
+            Back to Columns
+          </Button>
+        </div>
+      }
     </div>
   );
 }
