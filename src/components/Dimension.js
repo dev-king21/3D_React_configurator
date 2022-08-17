@@ -27,11 +27,11 @@ const Dimension = () => {
     if (newVal > lengths.mid_length_limit) {
       if (snap.columns.isShift[4] === false) {
         state.columns.isShift[4] = true;
-        state.columns.pos[4] = snap.columns.maxPos;  
+        state.columns.pos[4] = snap.columns.maxPos * 1.5;  
       }
       if (snap.columns.isShift[6] === false) {
         state.columns.isShift[6] = true;
-        state.columns.pos[6] = snap.columns.maxPos;  
+        state.columns.pos[6] = snap.columns.maxPos * 1.5;  
       }
     }
     state.length.width = newVal;

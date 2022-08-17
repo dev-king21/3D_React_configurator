@@ -169,10 +169,10 @@ export default function Columns() {
     <Box className={`column-box ${snap.columns.editing ? 'hide-column': 'show-column'}`} ref={containerRef}>
       <h5>Base Columns</h5>
       <Stack spacing={2} className="mt-3 mb-5 base-columns">
-        <Item className="base-column" onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); handleChange('A')}}><BsFillCheckCircleFill />Column A <b>{<BsTrash className="trash"/>}<BsPencilSquare /></b></Item>
-        <Item className="base-column" onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); handleChange('B')}}><BsFillCheckCircleFill />Column B <b>{<BsTrash className="trash"/>}<BsPencilSquare /></b></Item>
-        <Item className="base-column" onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); handleChange('C')}}><BsFillCheckCircleFill />Column C <b>{<BsTrash className="trash"/>}<BsPencilSquare /></b></Item>
-        <Item className="base-column" onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); handleChange('D')}}><BsFillCheckCircleFill />Column D <b>{<BsTrash className="trash"/>}<BsPencilSquare /></b></Item>
+        <Item className="base-column" onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); handleChange('A')}}><BsFillCheckCircleFill />Column A <b>{/*<BsTrash className="trash"/>*/}<BsPencilSquare /></b></Item>
+        <Item className="base-column" onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); handleChange('B')}}><BsFillCheckCircleFill />Column B <b>{/*<BsTrash className="trash"/>*/}<BsPencilSquare /></b></Item>
+        <Item className="base-column" onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); handleChange('C')}}><BsFillCheckCircleFill />Column C <b>{/*<BsTrash className="trash"/>*/}<BsPencilSquare /></b></Item>
+        <Item className="base-column" onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); handleChange('D')}}><BsFillCheckCircleFill />Column D <b>{/*<BsTrash className="trash"/>*/}<BsPencilSquare /></b></Item>
       </Stack>
       <h5>Extra Columns</h5>
         <Button

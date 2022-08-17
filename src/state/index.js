@@ -1,5 +1,5 @@
 import { proxy } from "valtio";
-import {lengths} from '../utils/constant'
+import {lengths, wooddesign} from '../utils/constant'
 
 // Using a Valtio state model to bridge reactivity between
 // the canvas and the dom, both can write to it and/or react to it.
@@ -9,7 +9,7 @@ const state = proxy({
   designStyle: null,
   blades: {
     color: '#ffffff',
-    texture: '',
+    texture: wooddesign[0].url,
     rotation: [-Math.PI, 0, -2.09],
   },
   structure: {

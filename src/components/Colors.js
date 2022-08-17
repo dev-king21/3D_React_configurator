@@ -31,14 +31,15 @@ export default function Colors() {
 
   const handleChange = (event) => {
     if (event.target.value === "wooddesign") {
+      state.isTexture = true;
       document.getElementsByClassName("woodStyle")[0].style.display = "grid";
       document.getElementsByClassName("bladeColor")[0].style.display = "none";
     } else {
+      state.isTexture = false;
       document.getElementsByClassName("woodStyle")[0].style.display = "none";
       document.getElementsByClassName("bladeColor")[0].style.display = "flex";
     }
     setColorType(event.target.value);
-    state.isTexture = true;
     state.blades.texture = wooddesign[0].url;
   };
 

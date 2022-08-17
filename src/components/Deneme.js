@@ -9,14 +9,31 @@ import { useFrame } from '@react-three/fiber'
 import state from "../state"
 import {lengths} from '../utils/constant';
 import { Html } from "@react-three/drei";
+import * as THREE from 'three'
+import { useLoader } from '@react-three/fiber'
 
 function Blades(props) {
+  
+  console.log("blades props========>", props);
+  
   const snap = useSnapshot(state);
-  const texture = snap.isTexture === true ? null:null;
   const list = [];
+  const texture = useLoader(THREE.TextureLoader, props.texture);
   for (var px1 = props.x_pos, px2 = props.x_pos - props.x_int ; px1 - px2 < props.len ;px1+=props.x_int, px2-=props.x_int) {
-    list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px1, props.y_pos, props.z_pos]} rotation={snap.blades.rotation} material-color={props.blade_color} />)
-    if (px1 - px2 + props.x_int * 2 < props.len) list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px2, props.y_pos, props.z_pos]} rotation={snap.blades.rotation} material-color={props.blade_color}/>)
+    if (props.isTexture === true) {
+      list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px1, props.y_pos, props.z_pos]} rotation={snap.blades.rotation} >
+        <meshBasicMaterial attach="material" map={props.isTexture?texture:null} />
+      </mesh>
+      )
+      if (px1 - px2 + props.x_int * 2 < props.len) list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px2, props.y_pos, props.z_pos]} rotation={snap.blades.rotation}>
+        <meshBasicMaterial attach="material" map={props.isTexture?texture:null} />
+      </mesh>
+      )  
+    }
+    else {
+      list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px1, props.y_pos, props.z_pos]} rotation={snap.blades.rotation} material-color={props.blade_color} />)
+      if (px1 - px2 + props.x_int * 2 < props.len) list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px2, props.y_pos, props.z_pos]} rotation={snap.blades.rotation} material-color={props.blade_color} />)  
+    }
   }
   return list;
 }
@@ -217,7 +234,7 @@ export function Model(props) {
         </group>
 {/* Xwidth */}
 
-{/* Ywidth */}
+{/* Ywidth */}  
         <group>
           <group position={[- (snap.length.width - lengths.int_width) / 2, 0, 0]}>
             <mesh castShadow receiveShadow geometry={nodes['Kes-EkstrFBXASC195FBXASC188zyon1_ncl1_3'].geometry} material={main_material} position={[-2785, 1321.77, 201.48]} rotation={[0, Math.PI / 2, 0]}
@@ -250,6 +267,8 @@ export function Model(props) {
           z_pos = {260.48}
           x_int = {200}
           len={snap.length.width}
+          isTexture={snap.isTexture}
+          texture={snap.blades.texture}
         />
       </group>
       </group>
