@@ -2,7 +2,7 @@ import React, { Suspense, useRef  } from "react";
 import { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky } from "@react-three/drei";
-import { Model } from "./components/Deneme";
+import { Model } from "./components/Cabbana";
 import VerticalLinearStepper from "./components/Stepper";
 import Stepper2 from './components/Stepper2';
 import Setting from "./components/Setting";
@@ -112,7 +112,7 @@ function App() {
             <planeBufferGeometry attach="geometry" args={[8, 5]} />
             <meshPhongMaterial attach="material" color="#dddddd" transparent opacity={0.3} />
           </mesh>
-          <Model scale={0.0003} position={[0, -0.05, 0.5]} activeStep={activeStep} subStep={subStep}/>
+          <Model scale={0.0003} position={[-0.9, -0.465, 0.57]} activeStep={activeStep} subStep={subStep}/>
           {/* <Environment preset="city" /> */}
           <ContactShadows 
             rotation-x={Math.PI / 2} 
@@ -120,8 +120,8 @@ function App() {
             opacity={0.25} 
             width={10} 
             height={10} 
-            blur={1.5} 
-            far={0.8} 
+            blur={1.5}
+            far={0.8}
           />
         </Suspense>
         <OrbitControls 

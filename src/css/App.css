@@ -470,7 +470,7 @@ input#number:focus-visible {
 .length-info {
   font-size: 10px;
   border-radius: 10px;
-  padding: 0 15px;
+  padding: 0 10px;
   background-color: white;
   color: black;
   opacity: 0.7;
@@ -493,4 +493,73 @@ input#number:focus-visible {
 
 .toggle-sidebar>svg {
   fill: white !important;
+}
+
+.side-info {
+  font-size: 12px;
+  text-align: center;
+  width: 70px;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  opacity: 0.7;
+  transform: translateX(-50%) translateY(-50%);
+}
+.side-info:hover {
+  cursor: pointer;
+  background-color:#002853;
+  color: white;
+}
+
+.overview {
+  padding: 15px;
+  overflow-y: scroll;
+}
+.overview::-webkit-scrollbar {
+  background: #ddd;
+  width: 5px;
+}
+
+.overview::-webkit-scrollbar-track {
+  background: #ddd;
+}
+ 
+.overview::-webkit-scrollbar-thumb {
+  background: #000c3a; 
+}
+.overview::-webkit-scrollbar-thumb:hover {
+  background: black; 
+}
+.edit {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 576px) {
+  .overview {
+    height: 380px;
+  }
+}
+
+
+@media screen and (min-width: 576px) {
+  .overview {
+    height: 200px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .overview {
+    height: 200px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .overview {
+    height: 420px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .overview {
+    height: 520px;
+  }
 }

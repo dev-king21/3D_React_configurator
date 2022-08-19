@@ -27,11 +27,13 @@ const Dimension = () => {
     if (newVal > lengths.mid_length_limit) {
       if (snap.columns.isShift[4] === false) {
         state.columns.isShift[4] = true;
-        state.columns.pos[4] = snap.columns.maxPos * 1.5;  
+        state.columns.pos[4] = snap.columns.maxPos * 1.5;
+        state.columns.added[4] = true;
       }
       if (snap.columns.isShift[6] === false) {
         state.columns.isShift[6] = true;
         state.columns.pos[6] = snap.columns.maxPos * 1.5;  
+        state.columns.added[6] = true;
       }
     }
     state.length.width = newVal;
@@ -59,7 +61,19 @@ const Dimension = () => {
         // if (_val < minX ) _val = minX;
         if (_val > maxX ) _val = maxX;
         setXWidth(_val);
-        state.length.width = _val;
+        if (_val > lengths.mid_length_limit) {
+          if (snap.columns.isShift[4] === false) {
+            state.columns.isShift[4] = true;
+            state.columns.pos[4] = snap.columns.maxPos * 1.5;
+            state.columns.added[4] = true;
+          }
+          if (snap.columns.isShift[6] === false) {
+            state.columns.isShift[6] = true;
+            state.columns.pos[6] = snap.columns.maxPos * 1.5;  
+            state.columns.added[6] = true;
+          }
+        }
+            state.length.width = _val;
         break;
       case "yWidth":
         // if (_val < minY ) _val = minY;

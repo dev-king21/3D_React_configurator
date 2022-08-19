@@ -10,7 +10,7 @@ const state = proxy({
   blades: {
     color: '#ffffff',
     texture: wooddesign[0].url,
-    rotation: [-Math.PI, 0, -2.09],
+    rotation: false,
   },
   structure: {
     color: '#ffffff',
@@ -31,10 +31,14 @@ const state = proxy({
     depth: lengths.int_depth,
   },
   columns: {
+    adding: false,
     editing: false,
     editingColumn: null,
-    minPos: 180,
-    maxPos: 800,
+    minPos: 340,
+    maxPos: 1000,
+    direction: [true, true, true, true, true, true, true, true],
+    removable: [false, false, false, false, true, true, true, true],
+    added: [true, true, true, true, false, false, false, false],
     pos: [0,0,0,0,0,0,0,0],
     isShift: [
       false,

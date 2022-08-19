@@ -149,28 +149,31 @@ export const comfortDesign = [
 
 export const bladeRotation = [
   {
-    rotation: [-Math.PI, 0, -2.09],
+    rotation: false,
     title: 'Indirect sunlight',
     url: 'https://dam.renson.eu/Sites/A/Public_Publications/12777?encoding=UTF-8',
   },
   {
-    rotation: [-Math.PI, 0, -1.09],
+    rotation: true,
     title: 'Direct sunlight',
     url: 'https://dam.renson.eu/Sites/A/Public_Publications/12787?encoding=UTF-8',
   },
 ];
 
 export const lengths = {
-  int_width: 6040,
+  int_width: 5727,
   min_width: 1800,
   max_width: 9400,
-  int_height: 4001,
+  int_height: 3660,
   min_height: 1800,
   max_height: 4500,
-  int_depth: 3043,
+  int_depth: 2720,
   min_depth: 450,
   max_depth: 3500,
   moveLimit: 2000,
   extra_add_length: 2000,
   mid_length_limit: 7200, //when over than this add extra bar
+  width_bias: 0.9948,
+  height_bias: 0.9536,
+  thickness: 170,
 }

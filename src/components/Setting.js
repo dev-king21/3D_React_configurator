@@ -54,7 +54,9 @@ export default function Setting() {
       <Gallery />
       <Divider />
       {snap.columns.editing === false ?
-        <div className="prev-next-btn">
+        activeStep === 4 && subStep === 0?null:
+        (
+          <div className="prev-next-btn">
         <Button
           variant="contained"
           color="primary"
@@ -75,6 +77,7 @@ export default function Setting() {
           Next
         </Button>
         </div>
+        )
         :
         <div className="text-center prev-next-btn">
           <Button

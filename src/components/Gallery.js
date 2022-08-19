@@ -10,13 +10,11 @@ import SideInfills from "./SideInfills";
 import Lightning from "./Lightning";
 import ComfortDesign from "./ComfortDesign";
 import BladeRotation from "./BladeRotation";
-// import { useSnapshot } from 'valtio';
-// import state from '../state';
+import Overview from './Overview';
 
 
 export default function Gallery() {
   const { activeStep, subStep } = React.useContext(AppContext);
-  // const snap = useSnapshot(state);
   const render = (activeStep, subStep) => {
     const currentStep = steps[activeStep].detail[subStep];
     switch (currentStep) {
@@ -39,7 +37,7 @@ export default function Gallery() {
       case "Blade rotation":
         return <BladeRotation />;
       case "Overview":
-        return <Dimension />;
+        return <Overview />;
     }
   };
 
