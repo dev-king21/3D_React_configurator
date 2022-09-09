@@ -1,28 +1,17 @@
-import React, { Suspense, useRef  } from "react";
+import React, { Suspense } from "react";
 import { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky } from "@react-three/drei";
-import { Model } from "./components/Cabbana";
-import VerticalLinearStepper from "./components/Stepper";
-import Stepper2 from './components/Stepper2';
-import Setting from "./components/Setting";
+import { Model } from "./components/3d_model/Cabbana";
+import VerticalLinearStepper from "./components/LeftSide/Stepper";
+import Stepper2 from './components/LeftSide/Stepper2';
+import Setting from "./components/LeftSide/Setting";
 import "./css/App.css";
 import AppContext from "./context/AppContext";
 import Grid from "@mui/material/Grid";
 import { ContactShadows } from '@react-three/drei'
-import Loading from './components/Loading';
-import { useFrame } from '@react-three/fiber'
-
-function Loader() {
-  const box = useRef()
-  useFrame(() => box.current && void (box.current.rotation.x += 0.05, box.current.rotation.y += 0.05))
-  return (
-   <mesh ref={box}>
-    <boxGeometry attach="geometry" args={[0.1, 0.1, 0.1]} />
-    <meshStandardMaterial attach="material" color={0x0ff000} />
-   </mesh>
-  );
-}
+import Loading from './components/Loading/Loading';
+import Loader3d from './components/Loading/Loader3d'
 
 function App() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -86,7 +75,7 @@ function App() {
           shadow-mapSize-width={2048} 
           shadow-mapSize-height={2048}
         />
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader3d />}>
           <mesh receiveShadow rotation={[-Math.PI/2, 0, 0]} position={[0, -1.22, 0]}>
             <boxGeometry attach="geometry" args={[8, 8, 1.5]} />
             <meshPhongMaterial attach="material" color="white" />

@@ -1,5 +1,11 @@
 export const steps = [
     {
+      label: 'MODELS',
+      detail: ['Cabbana', 'Point'],
+      description: ['Set the configuration for Cabbana',
+                    'Set the configuration for Point'],
+    },
+    {
       label: 'STRUCTURE',
       detail: ['Dimensions', 'Columns'],
       description: ['Set the dimensions for your configuration and optionally add mounting walls.',
