@@ -12,7 +12,7 @@ import { steps } from "../../utils/constant";
 import state from '../../state';
 
 export default function VerticalLinearStepper() {
-  const { activeStep, setActiveStep, subStep, setSubStep,  } =
+  const { activeStep, setActiveStep, subStep, setSubStep, modelID, setModelID } =
     React.useContext(AppContext);
 
   // const handleNext = () => {
@@ -25,6 +25,9 @@ export default function VerticalLinearStepper() {
 
   const updateSubStep = (index) => {
     state.columns.editing = false;
+    if (activeStep === 0) {
+      setModelID(index);
+    }
     setSubStep(index);
   };
 

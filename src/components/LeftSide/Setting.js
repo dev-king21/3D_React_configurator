@@ -18,6 +18,7 @@ export default function Setting() {
     if (activeStep === 5) return;
     if (
       steps[activeStep].detail === undefined ||
+      activeStep === 0 ||
       steps[activeStep].detail.length === subStep + 1
     ) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -30,7 +31,7 @@ export default function Setting() {
   const handlePrev = () => {
     if (subStep === 0) {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
-      setSubStep(steps[activeStep - 1].detail.length - 1);
+      if (activeStep > 1) setSubStep(steps[activeStep - 1].detail.length - 1);
     } else {
       setSubStep((prevSubStep) => prevSubStep - 1);
     }

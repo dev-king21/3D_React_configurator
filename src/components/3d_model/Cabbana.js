@@ -90,7 +90,7 @@ function Side(props) {
 function asciiDif(a,b) {
   return a.charCodeAt(0) - b.charCodeAt(0);
 }
-export function Model(props) {
+export function Cabbana(props) {
   const { nodes, materials } = useGLTF('models/cabbana.glb')
 
   const blade_geometry = nodes.FBXASC0501_1.geometry;

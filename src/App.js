@@ -2,7 +2,9 @@ import React, { Suspense } from "react";
 import { useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky } from "@react-three/drei";
-import { Model } from "./components/3d_model/Cabbana";
+import { Cabbana } from "./components/3d_model/Cabbana";
+import { Urban } from "./components/3d_model/Urban";
+
 import VerticalLinearStepper from "./components/LeftSide/Stepper";
 import Stepper2 from './components/LeftSide/Stepper2';
 import Setting from "./components/LeftSide/Setting";
@@ -14,6 +16,20 @@ import Loading from './components/Loading/Loading';
 import Loader3d from './components/Loading/Loader3d'
 
 function App() {
+
+  const render = (id) => {
+    switch (id) {
+      default:
+        return null;
+      case 0:
+        return <Cabbana scale={0.0003} position={[-0.9, -0.465, 0.57]} activeStep={activeStep} subStep={subStep}/>
+      case 1:
+        return <Urban scale={0.5} position={[0, -0.52, 0]} activeStep={activeStep} subStep={subStep}/>
+    }
+  }
+
+
+  const [modelID, setModelID] = React.useState(0);
   const [activeStep, setActiveStep] = React.useState(0);
   const [subStep, setSubStep] = React.useState(0);
   const [sidebar, setSidebar] = React.useState(true);
@@ -34,6 +50,8 @@ function App() {
         setSubStep,
         sidebar,
         setSidebar,
+        modelID,
+        setModelID,
       }}
     >
       <Grid container spacing={2}>
@@ -101,7 +119,7 @@ function App() {
             <planeBufferGeometry attach="geometry" args={[8, 5]} />
             <meshPhongMaterial attach="material" color="#dddddd" transparent opacity={0.3} />
           </mesh>
-          <Model scale={0.0003} position={[-0.9, -0.465, 0.57]} activeStep={activeStep} subStep={subStep}/>
+          {render(modelID)}
           {/* <Environment preset="city" /> */}
           <ContactShadows 
             rotation-x={Math.PI / 2} 
