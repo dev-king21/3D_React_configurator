@@ -9,10 +9,10 @@ import state from '../../state';
 import { BsChevronCompactLeft, BsChevronCompactUp } from "react-icons/bs";
 
 export default function Setting() {
-  const { activeStep, setActiveStep, subStep, setSubStep, setSidebar } =
+  const { activeStep, setActiveStep, subStep, setSubStep, setSidebar, modelID } =
     React.useContext(AppContext);
-  
   const snap = useSnapshot(state);
+  console.log(state);
 
   const handleNext = () => {
     if (activeStep === 5) return;
@@ -38,7 +38,7 @@ export default function Setting() {
   };
 
   const handleBack = () => {
-    state.columns.editing = false;
+    state[modelID].columns.editing = false;
   }
 
   const sideHide = () => {
@@ -54,7 +54,7 @@ export default function Setting() {
       </div>
       <Gallery />
       <Divider />
-      {snap.columns.editing === false ?
+      {snap[modelID].columns.editing === false ?
         activeStep === 5 && subStep === 0?null:
         (
           <div className="prev-next-btn">

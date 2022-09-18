@@ -2,13 +2,18 @@ import * as React from "react";
 import { styleImage } from "../../utils/constant";
 import ImageList from "@mui/material/ImageList";
 import state from "../../state";
+import AppContext from "../../context/AppContext";
+
 
 export default function DesignStyles() {
+  const { modelID } =
+  React.useContext(AppContext);
+
   const selected = (selected_url) => {
     styleImage.forEach((item) => {
       if (item.url === selected_url) {
-        state.designStyle = item.color;
-        state.isDesign = true;
+        state[modelID].designStyle = item.color;
+        state[modelID].isDesign = true;
         document.getElementById(item.url).style.opacity = 1.0;
         document.getElementById(item.url).style.border = "5px solid #31d84a";
       } else {

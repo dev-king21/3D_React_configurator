@@ -24,7 +24,7 @@ function App() {
       case 0:
         return <Cabbana scale={0.0003} position={[-0.9, -0.465, 0.57]} activeStep={activeStep} subStep={subStep}/>
       case 1:
-        return <Urban scale={0.5} position={[0, -0.52, 0]} activeStep={activeStep} subStep={subStep}/>
+        return <Urban scale={0.5} position={[0, -0.47, 0]} activeStep={activeStep} subStep={subStep}/>
     }
   }
 

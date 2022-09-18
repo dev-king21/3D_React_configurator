@@ -2,14 +2,17 @@ import * as React from "react";
 import { bladeRotation } from "../../utils/constant";
 import ImageList from "@mui/material/ImageList";
 import state from "../../state";
+import AppContext from "../../context/AppContext";
 
 export default function BladeRotation() {
+  const { modelID } =
+    React.useContext(AppContext);
   const selected = (selected_url) => {
     bladeRotation.forEach((item) => {
       if (item.url === selected_url) {
         document.getElementById(item.url).style.opacity = 1.0;
         document.getElementById(item.url).style.border = "5px solid #31d84a";
-        state.blades.rotation = item.rotation;
+        state[modelID].blades.rotation = item.rotation;
       } else {
         document.getElementById(item.url).style.border = "0px";
         document.getElementById(item.url).style.opacity = 0.7;

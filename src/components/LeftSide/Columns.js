@@ -14,6 +14,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
+import AppContext from "../../context/AppContext";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -68,7 +69,10 @@ function isExtra(column) {
 export function Column(props) {
   const id = asciiDif(props.column, 'A');
   const snap = useSnapshot(state);
-  const extra = snap.columns.added[4] || snap.columns.added[5] || snap.columns.added[6] || snap.columns.added[7];
+  const { modelID } =
+  React.useContext(AppContext);
+
+  const extra = snap[modelID].columns.added[4] || snap[modelID].columns.added[5] || snap[modelID].columns.added[6] || snap[modelID].columns.added[7];
   if (extra === true && id < 4) {
     return (
       <Item 
@@ -76,11 +80,11 @@ export function Column(props) {
       <BsFillCheckCircleFill />Column {props.column}</Item>  
     )
   }
-  return snap.columns.added[id] === true?(
+  return snap[modelID].columns.added[id] === true?(
     <Item 
     className="base-column"
     onClick={(ev) => {ev.preventDefault(); ev.stopPropagation(); props.handleChange(props.column); props.setValue(0);}}>
-    <BsFillCheckCircleFill />Column {props.column} <b>{snap.columns.removable[id]?
+    <BsFillCheckCircleFill />Column {props.column} <b>{snap[modelID].columns.removable[id]?
     <BsTrash className="trash"  onClick={(e)=>{e.preventDefault(); e.stopPropagation(); props.handleDelete(props.column)}}/>:null}
     <BsPencilSquare/></b></Item>
   ):null;
@@ -91,13 +95,15 @@ export default function Columns() {
   const containerRef = React.useRef(null);
   const [value, setValue] = React.useState(0);
   const [posColumn, setPosColumn] = useState(400);
+  const { modelID } =
+    React.useContext(AppContext);
 
-  const minPos = snap.columns.minPos;
-  const maxPos = isExtra(snap.columns.editingColumn)?(snap.columns.editingColumn === 'E' || snap.columns.editingColumn === 'G' ? snap.length.width - minPos:snap.length.height - minPos) :snap.columns.maxPos;
+  const minPos = snap[modelID].columns.minPos;
+  const maxPos = isExtra(snap[modelID].columns.editingColumn)?(snap[modelID].columns.editingColumn === 'E' || snap[modelID].columns.editingColumn === 'G' ? snap[modelID].length.width - minPos:snap[modelID].length.height - minPos) :snap[modelID].columns.maxPos;
 
   const handleChange = (column) => {
-    state.columns.editingColumn = column;
-    state.columns.editing = true;
+    state[modelID].columns.editingColumn = column;
+    state[modelID].columns.editing = true;
   };
 
   const validationVal = (min, max, val) => {
@@ -106,23 +112,23 @@ export default function Columns() {
   };
 
   const handleValChange = (event) => {
-    handleColumn(snap.columns.editingColumn);
+    handleColumn(snap[modelID].columns.editingColumn);
     let _val = Number(event.target.value);
     if (_val > maxPos ) _val = maxPos;
-    const dif = asciiDif(snap.columns.editingColumn, 'A');
+    const dif = asciiDif(snap[modelID].columns.editingColumn, 'A');
     setPosColumn(_val);
-    state.columns.pos[dif] = _val;
+    state[modelID].columns.pos[dif] = _val;
   };
 
   const handlePlusChange = () => {
-    handleColumn(snap.columns.editingColumn);
+    handleColumn(snap[modelID].columns.editingColumn);
     if (validationVal(minPos, maxPos, posColumn + 1)) {
       setPosColumn(posColumn + 1);
     }
   };
 
   const handleMinusChange = (type) => {
-    handleColumn(snap.columns.editingColumn);
+    handleColumn(snap[modelID].columns.editingColumn);
     if (validationVal(minPos, maxPos, posColumn - 1)) {
       setPosColumn(posColumn - 1);
     }
@@ -130,55 +136,55 @@ export default function Columns() {
 
   const handleSliderChange = (event, newVal) => {
     setPosColumn(newVal);
-    handleColumn(snap.columns.editingColumn);
-    const dif = asciiDif(snap.columns.editingColumn, 'A');
-    state.columns.pos[dif] = newVal;
+    handleColumn(snap[modelID].columns.editingColumn);
+    const dif = asciiDif(snap[modelID].columns.editingColumn, 'A');
+    state[modelID].columns.pos[dif] = newVal;
   };
 
   const handleColumn = (column) => {
-    const dif = asciiDif(snap.columns.editingColumn, 'A');
+    const dif = asciiDif(snap[modelID].columns.editingColumn, 'A');
     if (column === "No") {
-      state.columns.isShift[dif] = false;
-      state.columns.pos[dif]= 0;
+      state[modelID].columns.isShift[dif] = false;
+      state[modelID].columns.pos[dif]= 0;
     }
     else {
-      state.columns.isShift[dif] = true;
-      state.columns.pos[dif] = posColumn;
+      state[modelID].columns.isShift[dif] = true;
+      state[modelID].columns.pos[dif] = posColumn;
       if (dif > 3) {
-        state.columns.isShift[0] = false;
-        state.columns.isShift[1] = false;
-        state.columns.isShift[2] = false;
-        state.columns.isShift[3] = false;
-        state.columns.pos[0] = false;
-        state.columns.pos[1] = false;
-        state.columns.pos[2] = false;
-        state.columns.pos[3] = false;
+        state[modelID].columns.isShift[0] = false;
+        state[modelID].columns.isShift[1] = false;
+        state[modelID].columns.isShift[2] = false;
+        state[modelID].columns.isShift[3] = false;
+        state[modelID].columns.pos[0] = false;
+        state[modelID].columns.pos[1] = false;
+        state[modelID].columns.pos[2] = false;
+        state[modelID].columns.pos[3] = false;
       }
     }
   }
 
   const handleAdd = () => {
-    if (snap.columns.adding === true) {
-      state.columns.adding = false;
+    if (snap[modelID].columns.adding === true) {
+      state[modelID].columns.adding = false;
     }
     else {
-      state.columns.adding = true;
+      state[modelID].columns.adding = true;
     }
   }
 
   const handleDelete = (column) => {
     const id = asciiDif(column, 'A');
-    state.columns.added[id] = false;
-    state.columns.isShift[id] = false;
-    state.columns.pos[id] = 0;
+    state[modelID].columns.added[id] = false;
+    state[modelID].columns.isShift[id] = false;
+    state[modelID].columns.pos[id] = 0;
   }
 
   return (
     <div className="mt-5 content-main">
 
-      <div className={`selectedColumn ${snap.columns.editing ? 'show-column': 'hide-column'}`}>
+      <div className={`selectedColumn ${snap[modelID].columns.editing ? 'show-column': 'hide-column'}`}>
           <div>
-          <h3>Column {snap.columns.editingColumn}</h3>
+          <h3>Column {snap[modelID].columns.editingColumn}</h3>
           Do you wish to shift the column
         </div>
 
@@ -223,7 +229,7 @@ export default function Columns() {
       </div>    
 
 
-    <Box className={`column-box ${snap.columns.editing ? 'hide-column': 'show-column'}`} ref={containerRef}>
+    <Box className={`column-box ${snap[modelID].columns.editing ? 'hide-column': 'show-column'}`} ref={containerRef}>
       <h5>Base Columns</h5>
       <Stack spacing={2} className="mt-3 mb-5 base-columns">
         <Column column={'A'} handleChange={handleChange} handleDelete={handleDelete} setValue={setValue}/>
@@ -243,12 +249,12 @@ export default function Columns() {
 
         <Button
           variant="contained"
-          color={snap.columns.adding === false ? "success":"warning"}
+          color={snap[modelID].columns.adding === false ? "success":"warning"}
           size="medium"
           className="mt-3 add-column-btn"
           onClick={(e)=>{e.stopPropagation();handleAdd()}}
         >
-          {snap.columns.adding === false?'Add extra column':'Cancel'}
+          {snap[modelID].columns.adding === false?'Add extra column':'Cancel'}
         </Button>
       </Box>
     </div>

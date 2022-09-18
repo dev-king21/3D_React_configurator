@@ -10,19 +10,22 @@ const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 export function Columns() {
     const list = [];
     const snap = useSnapshot(state);
+    const { modelID } =
+    React.useContext(AppContext);
+  
     for (var id = 0 ; id < 8 ; id = id + 1 ) {
         var column = cols[id];
-        if (snap.columns.isShift[id] === false) continue;
+        if (snap[modelID].columns.isShift[id] === false) continue;
         list.push(
             <Grid container>
                 <Grid container>Column {column}</Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>Do you wish to shift the column?</Grid>
-                    <Grid item xs={6} className="textRight">{snap.columns.isShift[id] === true?'Yes':'No'}</Grid>
+                    <Grid item xs={6} className="textRight">{snap[modelID].columns.isShift[id] === true?'Yes':'No'}</Grid>
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>Position shifted column</Grid>
-                    <Grid item xs={6} className="textRight">{snap.columns.pos[id]}mm</Grid>
+                    <Grid item xs={6} className="textRight">{snap[modelID].columns.pos[id]}mm</Grid>
                 </Grid>
             </Grid>
         )
@@ -32,13 +35,13 @@ export function Columns() {
 
 export default function Overview() {
 
-    const { setActiveStep, setSubStep,  } = React.useContext(AppContext);
+    const { setActiveStep, setSubStep, modelID } = React.useContext(AppContext);
     const snap = useSnapshot(state);
     const handleChange = (activeStep, subStep) => {
         setActiveStep(activeStep);
         setSubStep(subStep);
     }
-
+  
     return (
         <Grid className="overview">
             <Grid container spacing={2}>
@@ -49,15 +52,15 @@ export default function Overview() {
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>Side 1-3</Grid>
-                    <Grid item xs={6}>{snap.length.width}mm</Grid>
+                    <Grid item xs={6}>{snap[modelID].length.width}mm</Grid>
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>Side 2-4</Grid>
-                    <Grid item xs={6}>{snap.length.height}mm</Grid>
+                    <Grid item xs={6}>{snap[modelID].length.height}mm</Grid>
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>Passage height</Grid>
-                    <Grid item xs={6}>{snap.length.depth}mm</Grid>
+                    <Grid item xs={6}>{snap[modelID].length.depth}mm</Grid>
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}><u>Columns</u></Grid>
@@ -71,16 +74,16 @@ export default function Overview() {
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>Color structure and columns</Grid>
-                    <Grid item xs={6}><span style={{ backgroundColor: snap.structure.color}}>{snap.structure.color}</span></Grid>
+                    <Grid item xs={6}><span style={{ backgroundColor: snap[modelID].structure.color}}>{snap[modelID].structure.color}</span></Grid>
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>Color type blades</Grid>
-                    <Grid item xs={6}>{snap.isTexture?'Wooddesign':'Textured'}</Grid>
+                    <Grid item xs={6}>{snap[modelID].isTexture?'Wooddesign':'Textured'}</Grid>
                 </Grid>
-                {snap.isTexture === false?
+                {snap[modelID].isTexture === false?
                     <Grid container spacing={3}>
                         <Grid item xs={6}>Color blades</Grid>
-                        <Grid item xs={6}><span style={{ backgroundColor: snap.blades.color}}>{snap.blades.color}</span></Grid>
+                        <Grid item xs={6}><span style={{ backgroundColor: snap[modelID].blades.color}}>{snap[modelID].blades.color}</span></Grid>
                     </Grid>:null
                 }
                 <Grid><b>SIDE INFILLS</b></Grid>
@@ -103,7 +106,7 @@ export default function Overview() {
                 </Grid>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>Blade Rotation</Grid>
-                    <Grid item xs={6}>{snap.blades.rotation === false ? 'Indirect sunlight':'Direct sunlight'}</Grid>
+                    <Grid item xs={6}>{snap[modelID].blades.rotation === false ? 'Indirect sunlight':'Direct sunlight'}</Grid>
                 </Grid>
             </Grid>
         </Grid>

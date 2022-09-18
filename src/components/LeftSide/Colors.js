@@ -11,10 +11,14 @@ import { wooddesign } from "../../utils/constant";
 import ImageList from "@mui/material/ImageList";
 import state from "../../state";
 import { useSnapshot } from "valtio";
+import AppContext from "../../context/AppContext";
+
 
 export default function Colors() {
   const snap = useSnapshot(state);
   const [colorType, setColorType] = useState("textured");
+  const { modelID } =
+    React.useContext(AppContext);
 
   const selected = (selected_url) => {
     wooddesign.forEach((item) => {
@@ -26,21 +30,21 @@ export default function Colors() {
         document.getElementById(item.url).style.opacity = 0.7;
       }
     });
-    state.blades.texture = selected_url;
+    state[modelID].blades.texture = selected_url;
   };
 
   const handleChange = (event) => {
     if (event.target.value === "wooddesign") {
-      state.isTexture = true;
+      state[modelID].isTexture = true;
       document.getElementsByClassName("woodStyle")[0].style.display = "grid";
       document.getElementsByClassName("bladeColor")[0].style.display = "none";
     } else {
-      state.isTexture = false;
+      state[modelID].isTexture = false;
       document.getElementsByClassName("woodStyle")[0].style.display = "none";
       document.getElementsByClassName("bladeColor")[0].style.display = "flex";
     }
     setColorType(event.target.value);
-    state.blades.texture = wooddesign[0].url;
+    state[modelID].blades.texture = wooddesign[0].url;
   };
 
   return (
@@ -48,10 +52,10 @@ export default function Colors() {
       <h6>Color structure and columns</h6>
       <CirclePicker
         className="mt-3"
-        color={snap.structure.color}
+        color={snap[modelID].structure.color}
         onChange={(color) => {
-          state.isDesign = false;
-          state.structure.color = color.hex;
+          state[modelID].isDesign = false;
+          state[modelID].structure.color = color.hex;
         }}
       />
 
@@ -78,10 +82,10 @@ export default function Colors() {
       <h6>Color Blades</h6>
       <CirclePicker
         className="mt-3 bladeColor"
-        color={snap.blades.color}
+        color={snap[modelID].blades.color}
         onChange={(color) => {
-          state.isDesign = false;
-          state.blades.color = color.hex;
+          state[modelID].isDesign = false;
+          state[modelID].blades.color = color.hex;
         }}
       />
 

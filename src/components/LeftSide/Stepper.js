@@ -24,7 +24,7 @@ export default function VerticalLinearStepper() {
   // };
 
   const updateSubStep = (index) => {
-    state.columns.editing = false;
+    state[modelID].columns.editing = false;
     if (activeStep === 0) {
       setModelID(index);
     }
@@ -32,7 +32,7 @@ export default function VerticalLinearStepper() {
   };
 
   const updateStep = (index) => {
-    state.columns.editing = false;
+    state[modelID].columns.editing = false;
     setActiveStep(index);
     setSubStep(0);
   };
