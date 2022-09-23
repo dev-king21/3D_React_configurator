@@ -27,9 +27,9 @@ const state = proxy(
     patch: "#ffffff",
   },
   length: {
-    width: lengths.int_width,
-    height: lengths.int_height,
-    depth: lengths.int_depth,
+    width: lengths[0].int_width,
+    depth: lengths[0].int_depth,
+    height_1: lengths[0].int_height_1,
   },
   columns: {
     adding: false,
@@ -76,9 +76,9 @@ const state = proxy(
     patch: "#ffffff",
   },
   length: {
-    width: lengths.int_width,
-    height: lengths.int_height,
-    depth: lengths.int_depth,
+    width: lengths[1].int_width,
+    height_1: lengths[1].int_height_1,
+    depth: lengths[1].int_depth,
   },
   columns: {
     adding: false,

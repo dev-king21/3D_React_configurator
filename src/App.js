@@ -22,9 +22,10 @@ function App() {
       default:
         return null;
       case 0:
-        return <Cabbana scale={0.0003} position={[-0.9, -0.465, 0.57]} activeStep={activeStep} subStep={subStep}/>
+        return <Cabbana scale={0.0003} position={[-0.9, -0.465, 0.57]} activeStep={activeStep} subStep={subStep} modelID={id}/>
       case 1:
-        return <Urban scale={0.5} position={[0, -0.47, 0]} activeStep={activeStep} subStep={subStep}/>
+        return <Urban scale={0.5} position={[-0.9, -0.465, 0.83]} activeStep={activeStep} subStep={subStep} modelID={id} />
+        // return <Urban scale={0.015} position={[-1, -0.47, 0.6]} activeStep={activeStep} subStep={subStep} modelID={id} />
     }
   }
 

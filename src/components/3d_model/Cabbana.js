@@ -25,7 +25,7 @@ function Blades(props) {
   for (var px = props.x_pos ; px < props.len ; px+=props.x_int ) {
     if (props.isTexture === true) {
       if (snap[modelID].blades.rotation === true) {
-        list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material}  position={[px - lengths.int_width / 2 + 120, props.y_pos, props.z_pos + lengths.int_depth + 400 ]} rotation={[0, Math.PI / 2, 0]}>
+        list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material}  position={[px - lengths[modelID].int_width / 2 + 120, props.y_pos, props.z_pos + lengths[modelID].int_height_1 + 400 ]} rotation={[0, Math.PI / 2, 0]}>
           <meshBasicMaterial attach="material" map={props.isTexture?texture:null} />
         </mesh>
         )          
@@ -39,7 +39,7 @@ function Blades(props) {
     }
     else {
       if (snap[modelID].blades.rotation === true) {
-        list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px - lengths.int_width / 2 + 120, props.y_pos, props.z_pos + lengths.int_depth + 400 ]} material-color={props.blade_color} rotation={[0, Math.PI / 2, 0]}/>)
+        list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px - lengths[modelID].int_width / 2 + 120, props.y_pos, props.z_pos + lengths[modelID].int_height_1 + 400 ]} material-color={props.blade_color} rotation={[0, Math.PI / 2, 0]}/>)
       }
       else list.push(<mesh castShadow receiveShadow geometry={props.blade_geometry} material={props.blade_material} position={[px, props.y_pos, props.z_pos]} material-color={props.blade_color} />)
     }
@@ -56,37 +56,37 @@ function Side(props) {
     case 1:
       return (
       <mesh
-        position={[snap[modelID].length.width / 2 + lengths.thickness, snap[modelID].length.height + lengths.thickness, snap[modelID].length.depth/2]}
+        position={[snap[modelID].length.width / 2 + lengths[modelID].thickness, snap[modelID].length.depth + lengths[modelID].thickness, snap[modelID].length.height_1/2]}
         rotation={[Math.PI/2, 0, 0]}
       >
-        <boxGeometry args={[snap[modelID].length.width, snap[modelID].length.depth, 1]}/>
+        <boxGeometry args={[snap[modelID].length.width, snap[modelID].length.height_1, 1]}/>
         <meshBasicMaterial color="#002853" transparent opacity={0.4}/>
       </mesh>);
     case 2:
       return (
         <mesh
-          position={[snap[modelID].length.width + lengths.thickness, snap[modelID].length.height / 2 + lengths.thickness, snap[modelID].length.depth/2]}
+          position={[snap[modelID].length.width + lengths[modelID].thickness, snap[modelID].length.depth / 2 + lengths[modelID].thickness, snap[modelID].length.height_1/2]}
           rotation={[Math.PI/2, Math.PI/2, 0]}
         >
-          <boxGeometry args={[snap[modelID].length.height, snap[modelID].length.depth, 1]}/>
+          <boxGeometry args={[snap[modelID].length.depth, snap[modelID].length.height_1, 1]}/>
           <meshBasicMaterial color="#002853" transparent opacity={0.4}/>
         </mesh>);
       case 3:
       return(
       <mesh
-        position={[snap[modelID].length.width / 2 + lengths.thickness, lengths.thickness, snap[modelID].length.depth/2]}
+        position={[snap[modelID].length.width / 2 + lengths[modelID].thickness, lengths[modelID].thickness, snap[modelID].length.height_1/2]}
         rotation={[Math.PI/2, 0, 0]}
       >
-        <boxGeometry args={[snap[modelID].length.width, snap[modelID].length.depth, 1]}/>
+        <boxGeometry args={[snap[modelID].length.width, snap[modelID].length.height_1, 1]}/>
         <meshBasicMaterial color="#002853" transparent opacity={0.4}/>
       </mesh>);
     case 4:
       return (
         <mesh
-          position={[lengths.thickness, snap[modelID].length.height / 2 + lengths.thickness, snap[modelID].length.depth/2]}
+          position={[lengths[modelID].thickness, snap[modelID].length.depth / 2 + lengths[modelID].thickness, snap[modelID].length.height_1/2]}
           rotation={[Math.PI/2, Math.PI/2, 0]}
         >
-          <boxGeometry args={[snap[modelID].length.height, snap[modelID].length.depth, 1]}/>
+          <boxGeometry args={[snap[modelID].length.depth, snap[modelID].length.height_1, 1]}/>
           <meshBasicMaterial color="#002853" transparent opacity={0.4}/>
         </mesh>);
     default:
@@ -114,54 +114,53 @@ export function Cabbana(props) {
     setCurrentSide(0);
   }
 
-
   
   return (
     <group {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]} position={[-(snap[modelID].length.width-lengths.int_width)/2, 0, 0]}>
+      <group rotation={[-Math.PI / 2, 0, 0]} position={[-(snap[modelID].length.width-lengths[modelID].int_width)/2, 0, 0]}>
 
       <Side current_side = {currentSide} />
 
-      {props.activeStep === 1 && props.subStep === 0 ? <Html scaleFactor={5} position={[0, 0, snap[modelID].length.depth / 2]}>
-          <div className="length-info">{snap[modelID].length.depth}mm</div>
+      {props.activeStep === 1 && props.subStep === 0 ? <Html scaleFactor={5} position={[0, 0, snap[modelID].length.height_1 / 2]}>
+          <div className="length-info">{snap[modelID].length.height_1}mm</div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 0 ? <Html scaleFactor={5} position={[snap[modelID].length.width / 2, 0, snap[modelID].length.depth]}>
+      {props.activeStep === 1 && props.subStep === 0 ? <Html scaleFactor={5} position={[snap[modelID].length.width / 2, 0, snap[modelID].length.height_1]}>
           <div className="length-info">{snap[modelID].length.width}mm</div>
       </Html>:null}
-      {props.activeStep ===1 && props.subStep === 0 ? <Html scaleFactor={5} position={[0, snap[modelID].length.height / 2, snap[modelID].length.depth]}>
-          <div className="length-info">{snap[modelID].length.height}mm</div>
+      {props.activeStep ===1 && props.subStep === 0 ? <Html scaleFactor={5} position={[0, snap[modelID].length.depth / 2, snap[modelID].length.height_1]}>
+          <div className="length-info">{snap[modelID].length.depth}mm</div>
       </Html>:null}
 
 
-      {props.activeStep === 1 && props.subStep === 1 ? <Html scaleFactor={5} position={[snap[modelID].columns.pos[3], 0, snap[modelID].length.depth * 3/ 2]}>
+      {props.activeStep === 1 && props.subStep === 1 ? <Html scaleFactor={5} position={[snap[modelID].columns.pos[3], 0, snap[modelID].length.height_1 * 3/ 2]}>
           <div className="length-info">D</div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 1 ? <Html scaleFactor={5} position={[snap[modelID].length.width - snap[modelID].columns.pos[2], 0, snap[modelID].length.depth * 3/ 2]}>
+      {props.activeStep === 1 && props.subStep === 1 ? <Html scaleFactor={5} position={[snap[modelID].length.width - snap[modelID].columns.pos[2], 0, snap[modelID].length.height_1 * 3/ 2]}>
           <div className="length-info">C</div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 1 ? <Html scaleFactor={5} position={[snap[modelID].length.width - snap[modelID].columns.pos[1], snap[modelID].length.height, snap[modelID].length.depth * 3/ 2]}>
+      {props.activeStep === 1 && props.subStep === 1 ? <Html scaleFactor={5} position={[snap[modelID].length.width - snap[modelID].columns.pos[1], snap[modelID].length.depth, snap[modelID].length.height_1 * 3/ 2]}>
           <div className="length-info">B</div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 1 ? <Html scaleFactor={5} position={[snap[modelID].columns.pos[0], snap[modelID].length.height, snap[modelID].length.depth * 3/ 2]}>
+      {props.activeStep === 1 && props.subStep === 1 ? <Html scaleFactor={5} position={[snap[modelID].columns.pos[0], snap[modelID].length.depth, snap[modelID].length.height_1 * 3/ 2]}>
           <div className="length-info">A</div>
       </Html>:null}
 
-      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.added[6]? <Html scaleFactor={5} position={[snap[modelID].columns.pos[6], 0, snap[modelID].length.depth * 3/ 2]}>
+      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.added[6]? <Html scaleFactor={5} position={[snap[modelID].columns.pos[6], 0, snap[modelID].length.height_1 * 3/ 2]}>
           <div className="length-info">G</div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.added[5]? <Html scaleFactor={5} position={[snap[modelID].length.width, snap[modelID].length.height - snap[modelID].columns.pos[5] + lengths.thickness, snap[modelID].length.depth * 3/ 2]}>
+      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.added[5]? <Html scaleFactor={5} position={[snap[modelID].length.width, snap[modelID].length.depth - snap[modelID].columns.pos[5] + lengths[modelID].thickness, snap[modelID].length.height_1 * 3/ 2]}>
           <div className="length-info">F</div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.added[7]? <Html scaleFactor={5} position={[0, snap[modelID].length.height - snap[modelID].columns.pos[7] + lengths.thickness, snap[modelID].length.depth * 3/ 2]}>
+      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.added[7]? <Html scaleFactor={5} position={[0, snap[modelID].length.depth - snap[modelID].columns.pos[7] + lengths[modelID].thickness, snap[modelID].length.height_1 * 3/ 2]}>
           <div className="length-info">H</div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.added[4]? <Html scaleFactor={5} position={[snap[modelID].columns.pos[4], snap[modelID].length.height, snap[modelID].length.depth * 3/ 2]}>
+      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.added[4]? <Html scaleFactor={5} position={[snap[modelID].columns.pos[4], snap[modelID].length.depth, snap[modelID].length.height_1 * 3/ 2]}>
           <div className="length-info">E</div>
       </Html>:null}
 
 
 
-      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.adding === true? <Html scaleFactor={5} position={[snap[modelID].length.width / 2, snap[modelID].length.height, 0]}>
+      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.adding === true? <Html scaleFactor={5} position={[snap[modelID].length.width / 2, snap[modelID].length.depth, 0]}>
           <div
             className="side-info"
             onPointerOver={(e) => {if(snap[modelID].columns.added[4] === false) setCurrentSide(1)}}
@@ -171,7 +170,7 @@ export function Cabbana(props) {
             Side 1<BsPlusCircle />
           </div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.adding === true? <Html scaleFactor={5} position={[snap[modelID].length.width, snap[modelID].length.height / 2, 0]}>
+      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.adding === true? <Html scaleFactor={5} position={[snap[modelID].length.width, snap[modelID].length.depth / 2, 0]}>
           <div
             className="side-info"
             onPointerOver={(e) => {if(snap[modelID].columns.added[5] === false) setCurrentSide(2)}} 
@@ -190,7 +189,7 @@ export function Cabbana(props) {
           >Side 3<BsPlusCircle />
           </div>
       </Html>:null}
-      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.adding === true? <Html scaleFactor={5} position={[0, snap[modelID].length.height / 2, 0]}>
+      {props.activeStep === 1 && props.subStep === 1 && snap[modelID].columns.adding === true? <Html scaleFactor={5} position={[0, snap[modelID].length.depth / 2, 0]}>
           <div
             className="side-info"
             onPointerOver={(e) => {if(snap[modelID].columns.added[7] === false) setCurrentSide(4)}}
@@ -202,23 +201,23 @@ export function Cabbana(props) {
 
 
 
-      <group position={[0, 0, snap[modelID].length.depth - lengths.int_depth]}>
-      <group scale={[1, snap[modelID].length.height / lengths.int_height, 1]} position={[0, -lengths.thickness * (snap[modelID].length.height/lengths.int_height -1), 1]}>
+      <group position={[0, 0, snap[modelID].length.height_1 - lengths[modelID].int_height_1]}>
+      <group scale={[1, snap[modelID].length.depth / lengths[modelID].int_depth, 1]} position={[0, -lengths[modelID].thickness * (snap[modelID].length.depth/lengths[modelID].int_depth -1), 1]}>
 {/* Right Side*/}
         <mesh castShadow receiveShadow geometry={nodes.FBXASC0497_1.geometry} material={materials.Material}  material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color} />
         <mesh castShadow receiveShadow geometry={nodes.FBXASC0576_1.geometry} material={materials.Material} />
         <mesh castShadow receiveShadow geometry={nodes.Kes_Ekstr6.geometry} material={materials.Material} />
 {/* Left Side */}
-        <group position={[(snap[modelID].length.width - lengths.int_width) * lengths.width_bias, 0, 0]}>
+        <group position={[(snap[modelID].length.width - lengths[modelID].int_width) * lengths[modelID].width_bias, 0, 0]}>
           <mesh castShadow receiveShadow geometry={nodes.FBXASC0496_1.geometry} material={materials.Material} />
           <mesh castShadow receiveShadow geometry={nodes.FBXASC0575_1.geometry} material={materials.Material} />
           <mesh castShadow receiveShadow geometry={nodes.Kes_Ekstr5.geometry} material={materials.Material} />
         </group>        
       </group>
 
-      <group scale={[snap[modelID].length.width / lengths.int_width, 1, 1]} position={[ -lengths.thickness * (snap[modelID].length.width / lengths.int_width - 1), 0, 0]}>
+      <group scale={[snap[modelID].length.width / lengths[modelID].int_width, 1, 1]} position={[ -lengths[modelID].thickness * (snap[modelID].length.width / lengths[modelID].int_width - 1), 0, 0]}>
 {/* Front Side */}
-      <group position={[0, (snap[modelID].length.height-lengths.int_height), 0]}>
+      <group position={[0, (snap[modelID].length.depth-lengths[modelID].int_depth), 0]}>
         <mesh castShadow receiveShadow geometry={nodes.Group13.geometry} material={materials.Material} />
         <mesh castShadow receiveShadow geometry={nodes.Group14.geometry} material={materials.Material} />
         <mesh castShadow receiveShadow geometry={nodes.Group15.geometry} material={materials.Material} />
@@ -231,50 +230,50 @@ export function Cabbana(props) {
       </group>
       </group>
 
-    <group position={[0, (snap[modelID].length.height - lengths.int_height), 0]}>
+    <group position={[0, (snap[modelID].length.depth - lengths[modelID].int_depth), 0]}>
 {/* ColumnA */}
         <group position={[snap[modelID].columns.pos[0], 0, 0]}>
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group9.geometry} material={materials.FrontCol}  material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color} />
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group10.geometry} material={materials.Material} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group9.geometry} material={materials.FrontCol}  material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group10.geometry} material={materials.Material} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
           <mesh castShadow receiveShadow geometry={nodes.Pah1_2.geometry} material={materials.Materi01} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
         </group>
         {snap[modelID].columns.isShift[4] === true ? 
         <group position={[snap[modelID].columns.pos[4], 0, 0]}>
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group9.geometry} material={materials.FrontCol}  material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color} />
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group10.geometry} material={materials.Material} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group9.geometry} material={materials.FrontCol}  material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group10.geometry} material={materials.Material} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
           <mesh castShadow receiveShadow geometry={nodes.Pah1_2.geometry} material={materials.Materi01} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
         </group>:null}
         {snap[modelID].columns.isShift[7] === true ? 
         <group position={[0, -snap[modelID].columns.pos[7], 0]}>
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group9.geometry} material={materials.FrontCol}  material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color} />
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group10.geometry} material={materials.Material} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group9.geometry} material={materials.FrontCol}  material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group10.geometry} material={materials.Material} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
           <mesh castShadow receiveShadow geometry={nodes.Pah1_2.geometry} material={materials.Materi01} material-color = {snap[modelID].isDesign ? snap[modelID].designStyle:snap[modelID].structure.color}/>
         </group>:null}
 
 
 {/* CornerA */}
-      <group position={[0, 0, snap[modelID].length.depth - lengths.int_depth]}>
+      <group position={[0, 0, snap[modelID].length.height_1 - lengths[modelID].int_height_1]}>
         <mesh castShadow receiveShadow geometry={nodes.Group11.geometry} material={materials.FrontCol} />
         <mesh castShadow receiveShadow geometry={nodes.mesh_92_1.geometry} material={materials.Material} />
         <mesh castShadow receiveShadow geometry={nodes.mesh_92.geometry} material={materials.Materi01} />
       </group>
 {/* ColumnB */}
-      <group position={[(snap[modelID].length.width - lengths.int_width) * lengths.width_bias, 0, 0]}>
+      <group position={[(snap[modelID].length.width - lengths[modelID].int_width) * lengths[modelID].width_bias, 0, 0]}>
         <group position={[-snap[modelID].columns.pos[1], 0, 0]}>
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group5.geometry} material={materials.FrontCol} />
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group6.geometry} material={materials.Material} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group5.geometry} material={materials.FrontCol} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group6.geometry} material={materials.Material} />
           <mesh castShadow receiveShadow geometry={nodes.Pah10_2.geometry} material={materials.Materi01} />
         </group>
         {snap[modelID].columns.isShift[5] === true?
           <group position={[0, -snap[modelID].columns.pos[5], 0]}>
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group5.geometry} material={materials.FrontCol} />
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group6.geometry} material={materials.Material} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group5.geometry} material={materials.FrontCol} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group6.geometry} material={materials.Material} />
           <mesh castShadow receiveShadow geometry={nodes.Pah10_2.geometry} material={materials.Materi01} />
         </group>:null
         }
 
 {/* CornerB */}
-        <group position={[0, 0, snap[modelID].length.depth - lengths.int_depth]}>
+        <group position={[0, 0, snap[modelID].length.height_1 - lengths[modelID].int_height_1]}>
           <mesh castShadow receiveShadow geometry={nodes.Group7.geometry} material={materials.FrontCol} />
           <mesh castShadow receiveShadow geometry={nodes.mesh_100.geometry} material={materials.Material} />
           <mesh castShadow receiveShadow geometry={nodes.mesh_100_1.geometry} material={materials.Materi01} />
@@ -283,15 +282,15 @@ export function Cabbana(props) {
     </group>
 
 {/* ColumnC */}
-      <group position={[(snap[modelID].length.width - lengths.int_width) * lengths.width_bias, 0, 0]}>
+      <group position={[(snap[modelID].length.width - lengths[modelID].int_width) * lengths[modelID].width_bias, 0, 0]}>
         <group position={[-snap[modelID].columns.pos[2], 0, 0]}>
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group24.geometry} material={materials.Material} />
-          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group25.geometry} material={materials.FrontCol} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group24.geometry} material={materials.Material} />
+          <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group25.geometry} material={materials.FrontCol} />
           <mesh castShadow receiveShadow geometry={nodes.FBXASC0572_1.geometry} material={materials.Materi02} />
           <mesh castShadow receiveShadow geometry={nodes.Pah1_1.geometry} material={materials.Materi01} />          
         </group>
 {/* CornerC */}
-        <group position={[0, 0, snap[modelID].length.depth - lengths.int_depth]}>
+        <group position={[0, 0, snap[modelID].length.height_1 - lengths[modelID].int_height_1]}>
           <mesh castShadow receiveShadow geometry={nodes.Group18.geometry} material={materials.FrontCol} />
           <mesh castShadow receiveShadow geometry={nodes.mesh_76_1.geometry} material={materials.Material} />
           <mesh castShadow receiveShadow geometry={nodes.mesh_76.geometry} material={materials.Materi01} />        
@@ -300,27 +299,27 @@ export function Cabbana(props) {
 
 {/* ColumnD */}
       <group position={[snap[modelID].columns.pos[3], 0, 0]}>
-        <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group27.geometry} material={materials.FrontCol} />
-        <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group28.geometry} material={materials.Material} />
+        <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group27.geometry} material={materials.FrontCol} />
+        <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group28.geometry} material={materials.Material} />
         <mesh castShadow receiveShadow geometry={nodes.FBXASC0572_2.geometry} material={materials.Materi02} />
         <mesh castShadow receiveShadow geometry={nodes.Pah10_1.geometry} material={materials.Materi01} />
       </group>
       {snap[modelID].columns.isShift[6] === true?
         <group position={[snap[modelID].columns.pos[6], 0, 0]}>
-        <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group27.geometry} material={materials.FrontCol} />
-        <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.depth/lengths.int_depth]} geometry={nodes.Group28.geometry} material={materials.Material} />
+        <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group27.geometry} material={materials.FrontCol} />
+        <mesh castShadow receiveShadow scale={[1, 1, snap[modelID].length.height_1/lengths[modelID].int_height_1]} geometry={nodes.Group28.geometry} material={materials.Material} />
         <mesh castShadow receiveShadow geometry={nodes.FBXASC0572_2.geometry} material={materials.Materi02} />
         <mesh castShadow receiveShadow geometry={nodes.Pah10_1.geometry} material={materials.Materi01} />
       </group>:null
       }
 
 {/* CornerD */}
-      <group position={[0, 0, snap[modelID].length.depth - lengths.int_depth]}>
+      <group position={[0, 0, snap[modelID].length.height_1 - lengths[modelID].int_height_1]}>
         <mesh castShadow receiveShadow geometry={nodes.Group16.geometry} material={materials.FrontCol} />
         <mesh castShadow receiveShadow geometry={nodes.mesh_101.geometry} material={materials.Material} />
         <mesh castShadow receiveShadow geometry={nodes.mesh_101_1.geometry} material={materials.Materi01} />
       </group>
-      <group scale={[1, snap[modelID].length.height / lengths.int_height, 1]} position={[0, 110*(1 - snap[modelID].length.height / lengths.int_height) , snap[modelID].length.depth-lengths.int_depth]}>
+      <group scale={[1, snap[modelID].length.depth / lengths[modelID].int_depth, 1]} position={[0, 110*(1 - snap[modelID].length.depth / lengths[modelID].int_depth) , snap[modelID].length.height_1-lengths[modelID].int_height_1]}>
         <Blades
             blade_geometry={blade_geometry}
             blade_material={blade_material}

@@ -13,22 +13,22 @@ const Dimension = () => {
   React.useContext(AppContext);
 
 
-  const minX = lengths.min_width;
-  const maxX = lengths.max_width;
+  const minX = lengths[modelID].min_width;
+  const maxX = lengths[modelID].max_width;
 
-  const minY = lengths.min_height;
-  const maxY = lengths.max_height;
+  const minY = lengths[modelID].min_depth;
+  const maxY = lengths[modelID].max_depth;
 
-  const h_min = lengths.min_depth;
-  const h_max = lengths.max_depth;
+  const h_min = lengths[modelID].min_depth;
+  const h_max = lengths[modelID].max_depth;
 
   const [xWidth, setXWidth] = useState(snap[modelID].length.width);
-  const [yWidth, setYWidth] = useState(snap[modelID].length.height);
-  const [height, setHeight] = useState(snap[modelID].length.depth);
+  const [yWidth, setYWidth] = useState(snap[modelID].length.depth);
+  const [height, setHeight] = useState(snap[modelID].length.height_1);
 
   const handleXSliderChange = (event, newVal) => {
     setXWidth(newVal);
-    if (newVal > lengths.mid_length_limit) {
+    if (newVal > lengths[modelID].mid_length_limit) {
       if (snap[modelID].columns.isShift[4] === false) {
         state[modelID].columns.isShift[4] = true;
         state[modelID].columns.pos[4] = snap[modelID].columns.maxPos * 1.5;
@@ -45,12 +45,12 @@ const Dimension = () => {
 
   const handleYSliderChange = (event, newVal) => {
     setYWidth(newVal);
-    state[modelID].length.height = newVal;
+    state[modelID].length.depth = newVal;
   };
 
   const handleHSliderChange = (event, newVal) => {
     setHeight(newVal);
-    state[modelID].length.depth = newVal;
+    state[modelID].length.height_1 = newVal;
   };
 
   const validationVal = (min, max, val) => {
@@ -65,7 +65,7 @@ const Dimension = () => {
         // if (_val < minX ) _val = minX;
         if (_val > maxX ) _val = maxX;
         setXWidth(_val);
-        if (_val > lengths.mid_length_limit) {
+        if (_val > lengths[modelID].mid_length_limit) {
           if (snap[modelID].columns.isShift[4] === false) {
             state[modelID].columns.isShift[4] = true;
             state[modelID].columns.pos[4] = snap[modelID].columns.maxPos * 1.5;
@@ -83,13 +83,13 @@ const Dimension = () => {
         // if (_val < minY ) _val = minY;
         if (_val > maxY ) _val = maxY;
         setYWidth(_val);
-        state[modelID].length.height = _val;
+        state[modelID].length.depth = _val;
         break;
       case "height":
         // if (_val < h_min ) _val = h_min;
         if (_val > h_max ) _val = h_max;
         setHeight(_val);
-        state[modelID].length.depth = _val;
+        state[modelID].length.height_1 = _val;
         break;
       default:
         break;
@@ -107,13 +107,13 @@ const Dimension = () => {
       case "yWidth":
         if (validationVal(minY, maxY, yWidth + 1)) {
           setYWidth(yWidth + 1);
-          state[modelID].length.height = yWidth + 1;
+          state[modelID].length.depth = yWidth + 1;
         }
         break;
       case "height":
         if (validationVal(h_min, h_max, height + 1)) {
           setHeight(height + 1);
-          state[modelID].length.depth = height + 1;
+          state[modelID].length.height_1 = height + 1;
         }
         break;
       default:
@@ -132,13 +132,13 @@ const Dimension = () => {
       case "yWidth":
         if (validationVal(minY, maxY, yWidth - 1)) {
           setYWidth(yWidth - 1);
-          state[modelID].length.height = yWidth - 1;
+          state[modelID].length.depth = yWidth - 1;
         }
         break;
       case "height":
         if (validationVal(h_min, h_max, height - 1)) {
           setHeight(height - 1);
-          state[modelID].length.depth = height - 1;
+          state[modelID].length.height_1 = height - 1;
         }
         break;
       default:

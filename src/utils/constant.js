@@ -166,20 +166,45 @@ export const bladeRotation = [
   },
 ];
 
-export const lengths = {
+export const lengths = [
+{
+  unit: 1,
   int_width: 5727,
   min_width: 1800,
   max_width: 9400,
-  int_height: 3660,
-  min_height: 1800,
-  max_height: 4500,
-  int_depth: 2720,
-  min_depth: 450,
-  max_depth: 3500,
+  int_depth: 3660,
+  min_depth: 1800,
+  max_depth: 4500,
+  int_height_1: 2720,
+  min_height_1: 450,
+  max_height_1: 3500,
   moveLimit: 2000,
   extra_add_length: 2000,
   mid_length_limit: 7200, //when over than this add extra bar
   width_bias: 0.9948,
   height_bias: 0.9536,
   thickness: 170,
+},
+{
+  unit: 0.0393701,
+  int_width: 3152,
+  min_width: 1800,
+  max_width: 9400,
+  int_height_1: 1958,
+  min_height_1: 500,
+  max_height_1: 3500,
+  int_height_2: 2446,
+  min_height_2: 500,
+  max_height_2: 5000,
+  int_depth: 2336,
+  min_depth: 450,
+  max_depth: 4500,
+  moveLimit: 2000,
+  extra_add_length: 2000,
+  mid_length_limit: 7200, //when over than this add extra bar
+  width_bias: 0.9948,
+  height_bias: 0.9536,
+  thickness: 170,
+  frame_width: 31,
 }
+]
